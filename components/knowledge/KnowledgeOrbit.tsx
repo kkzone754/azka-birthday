@@ -26,7 +26,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"low-power" });
+      renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"high-performance" });
     } catch {
       return;
     }
@@ -80,12 +80,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const ro=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
     ro.observe(host);
 
-    const clock=new THREE.Clock(); let frame=0; let paused=false;
-    const setPaused=(value:boolean)=>{paused=value;};
-    const visibility=()=>setPaused(document.visibilityState !== "visible");
-    document.addEventListener("visibilitychange",visibility);
-    const io=new IntersectionObserver(([entry])=>setPaused(!entry.isIntersecting),{threshold:0.02});
-    io.observe(host);
+    const clock=new THREE.Clock(); let frame=0;
     const tick=()=>{
       const t=clock.getElapsedTime();
       root.rotation.y += (target.x+t*.012-root.rotation.y)*.025;
@@ -103,7 +98,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     tick();
 
     return ()=>{
-      cancelAnimationFrame(frame); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange",visibility); host.removeEventListener("pointermove",move); renderer.dispose();
+      cancelAnimationFrame(frame); ro.disconnect(); host.removeEventListener("pointermove",move); renderer.dispose();
       [wire,inner,halo,...rings,...nodes].forEach((m)=>{m.geometry.dispose();(m.material as THREE.Material).dispose();});
       lines.forEach(l=>l.geometry.dispose()); materials.forEach(m=>m.dispose()); pg.dispose();(particles.material as THREE.Material).dispose();
       if(renderer.domElement.parentNode===host)host.removeChild(renderer.domElement);
