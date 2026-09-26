@@ -1580,3 +1580,8 @@ body {
     animation: none !important;
   }
 }
+
+
+.gift-curiosity .knowledge-orbit-3d {
+  pointer-events: auto;
+}
