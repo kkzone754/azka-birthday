@@ -61,10 +61,12 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
       });
 
       scroll
-        .to(reveal, { y: -45, scale: 1.04, autoAlpha: 0.2, filter: "blur(4px)", duration: 1.15 })
-        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.15, stagger: 0.18, ease: "power4.out" }, "-=0.1")
-        .to({}, { duration: 1.5 })
-        .to(items, { y: -12, autoAlpha: 0, filter: "blur(3px)", duration: 1.05, stagger: 0.08, ease: "power3.inOut" })
+        .to(reveal, { y: 0, scale: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" })
+        .to({}, { duration: 1.2 })
+        .to(reveal, { y: -32, scale: 1.02, autoAlpha: 0, filter: "blur(4px)", duration: 0.55, ease: "power3.inOut" })
+        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.05, stagger: 0.16, ease: "power4.out" })
+        .to({}, { duration: 3.2 })
+        .to(items, { y: -6, autoAlpha: 0.94, duration: 0.35, ease: "power2.out" })
         .to(glow, { scale: 1.55, autoAlpha: 0.28, duration: 0.9 }, "<");
     }, section);
 
