@@ -117,6 +117,10 @@ function Mind() {
   useCinematic(ref);
   return (
     <section ref={ref} className="gift-scene gift-mind">
+      <div className="scene-accent accent-orb accent-orb-a" aria-hidden="true" />
+      <div className="scene-accent accent-orb accent-orb-b" aria-hidden="true" />
+      <div className="scene-accent mind-pulse" aria-hidden="true" />
+      <div className="scene-accent mind-scan" aria-hidden="true" />
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
@@ -192,6 +196,7 @@ function Builder() {
   ];
   return (
     <section ref={ref} className="gift-scene gift-builder">
+      <div className="builder-cursor" aria-hidden="true" />
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-content">
         <p className="gift-intro gift-kicker">03 / THE BUILDER</p>
@@ -225,6 +230,7 @@ function Explore() {
   useCinematic(ref);
   return (
     <section ref={ref} className="gift-scene gift-explore">
+      <div className="explore-sweep" aria-hidden="true" />
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-grid" aria-hidden="true" />
       <div className="gift-content">
@@ -253,6 +259,7 @@ function Ideas() {
   useCinematic(ref);
   return (
     <section ref={ref} className="gift-scene gift-ideas">
+      <div className="ideas-sparks" aria-hidden="true">{Array.from({ length: 6 }, (_, i) => <i key={i} />)}</div>
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-content">
         <p className="gift-intro gift-kicker">05 / BUILDING IDEAS</p>
@@ -327,6 +334,7 @@ function Future() {
   useCinematic(ref);
   return (
     <section ref={ref} className="gift-scene gift-future">
+      <div className="future-constellation" aria-hidden="true">{Array.from({ length: 6 }, (_, i) => <i key={i} />)}</div>
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
