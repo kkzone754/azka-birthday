@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
@@ -269,7 +269,7 @@ function Thinking() {
         </div>
         <div className="gift-items thinking-traits">
           {traits.map(([title, flow], i) => (
-            <div key={title} style={{ "--i": i } as React.CSSProperties}>
+            <div key={title} style={{ "--i": i } as CSSProperties}>
               <strong>{title}</strong><span>{flow}</span>
             </div>
           ))}
