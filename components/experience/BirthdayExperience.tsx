@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
+import KnowledgeOrbit from "@/components/knowledge/KnowledgeOrbit";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,7 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
       const q = gsap.utils.selector(section);
       const intro = q(".gift-intro");
       const reveal = q(".gift-reveal");
-      const items = q(".gift-item");
+      const items = q(".gift-items");
       const glow = q(".gift-glow");
       const rings = q(".gift-ring");
 
@@ -123,6 +124,7 @@ function Curiosity() {
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
+      <KnowledgeOrbit />
       <div className="gift-content">
         <p className="gift-intro gift-kicker">02 / CURIOSITY</p>
         <div className="gift-reveal">
@@ -240,16 +242,13 @@ function FinalReveal() {
       const q = gsap.utils.selector(section);
       const words = q(".final-word");
       const message = q(".final-message");
-      const star = q(".final-star");
-      gsap.set([words, message, star], { autoAlpha: 0, y: 40 });
+      gsap.set([words, message], { autoAlpha: 0, y: 40 });
       const tl = gsap.timeline({
         scrollTrigger: { trigger: section, start: "top top", end: "+=1600", scrub: 1.1, pin: true, anticipatePin: 1 },
       });
       tl.to(words, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power4.out" })
         .to(words, { autoAlpha: 0, y: -45, duration: 0.7, stagger: 0.05 })
-        .to(star, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, "-=0.2")
         .to(message, { autoAlpha: 1, y: 0, duration: 1.1, ease: "power4.out" }, "-=0.2");
-      gsap.to(star, { rotation: 360, duration: 22, repeat: -1, ease: "none" });
     }, section);
     return () => ctx.revert();
   }, []);
@@ -262,7 +261,6 @@ function FinalReveal() {
         <p className="final-word">I NOTICED.</p>
         <p className="final-word">AND I REMEMBERED.</p>
       </div>
-      <div className="final-star" aria-hidden="true">✦</div>
       <div className="final-message">
         <p className="gift-overline">FOR AZKA</p>
         <h2>Happy Birthday,<br /><span>Azka.</span></h2>
