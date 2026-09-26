@@ -118,11 +118,15 @@ function Mind() {
 function Curiosity() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
-  const [active, setActive] = useState(0);\n  return (\n    <section ref={ref} className="gift-scene gift-curiosity">
+  const [active, setActive] = useState(0);
+  return (
+    <section ref={ref} className="gift-scene gift-curiosity">
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
-      <KnowledgeOrbit activeIndex={active} />\n      <div className="curiosity-core" aria-hidden="true"><span>CURIOUS</span><strong>MIND</strong><i /></div>\n      <div className="gift-content">
+      <KnowledgeOrbit activeIndex={active} />
+      <div className="curiosity-core" aria-hidden="true"><span>CURIOUS</span><strong>MIND</strong><i /></div>
+      <div className="gift-content">
         <p className="gift-intro gift-kicker">02 / CURIOSITY</p>
         <div className="gift-reveal">
           <p className="gift-overline">A FEW THINGS YOUR MIND KEEPS CIRCLING BACK TO</p>
@@ -269,7 +273,6 @@ function FinalReveal() {
         <h2>Happy Birthday,<br /><span>Azka.</span></h2>
         <p className="gift-body">Tumhara sharp thinking, tumhari curiosity, aur jis tarah tum cheezon ko samajhne ki koshish karti ho — that is genuinely something special.</p>
         <p className="gift-body roman">Keep learning. Keep exploring. Keep building. Aur sab se important — questions poochti rehna.</p>
-        <p className="final-sign">✦</p>
       </div>
     </section>
   );
