@@ -53,7 +53,7 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=2200",
+          end: "+=3600",
           scrub: 1.15,
           pin: true,
           anticipatePin: 1,
