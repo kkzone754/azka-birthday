@@ -41,7 +41,7 @@ export default function Home() {
         </button>
         <div className="topbar-meta">
           <span className="status-dot" />
-          <span>CURIOUSITY / ONLINE</span>
+          <span>CURIOSITY / ONLINE</span>
           <button
             className="sound-toggle"
             onClick={() => setSound((value) => !value)}
@@ -260,7 +260,7 @@ return something_real;`}</pre>
 
       <footer className="site-footer">
         <span>AZKA //</span>
-        <span>CURIOUSITY DETECTED.</span>
+        <span>CURIOSITY DETECTED.</span>
         <span>KEEP GOING.</span>
       </footer>
     </main>
