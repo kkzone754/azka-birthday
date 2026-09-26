@@ -1667,3 +1667,64 @@ button:focus-visible {
 .gift-cover .cover-button {
   touch-action: manipulation;
 }
+
+
+/* FINAL MOBILE COVER FIX
+   The orbit uses a static 3D shell + a separate rotating track so the
+   centering transform can never fight the animation transform. */
+.gift-cover .cover-orbit {
+  transform: translate(-50%, -50%) rotateX(66deg);
+  transform-style: preserve-3d;
+  border-color: transparent;
+  animation: none !important;
+  will-change: transform;
+}
+.gift-cover .cover-orbit-track,
+.gift-cover .cover-orbit-inner-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.gift-cover .cover-orbit-track {
+  border: 1px solid rgba(139,215,255,.18);
+  box-shadow: 0 0 80px rgba(139,215,255,.05);
+  animation: cover-orbit-track-spin 18s linear infinite;
+}
+.gift-cover .cover-orbit-inner {
+  transform: translate(-50%, -50%) rotateX(62deg) rotateY(10deg);
+  transform-style: preserve-3d;
+  border-color: transparent;
+  animation: none !important;
+}
+.gift-cover .cover-orbit-inner-track {
+  border: 1px solid rgba(168,150,255,.12);
+  animation: cover-orbit-inner-track-spin 14s linear infinite reverse;
+}
+@keyframes cover-orbit-track-spin {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+@keyframes cover-orbit-inner-track-spin {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+
+/* Keep the cover motion subtle, even when the OS asks for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .gift-cover .cover-orbit-track { animation-duration: 36s; }
+  .gift-cover .cover-orbit-inner-track { animation-duration: 30s; }
+}
+
+/* Pointer-first mobile interaction: the real button is always the top layer. */
+.gift-cover .cover-button {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 100 !important;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
