@@ -371,13 +371,14 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
       gsap.fromTo(".cover-name", { y: 55, autoAlpha: 0, scale: .92, filter: "blur(10px)" }, { y: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1.15, delay: .1, ease: "power4.out" });
       gsap.fromTo(".cover-copy", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .75, delay: .5, ease: "power3.out" });
       gsap.fromTo(".cover-button", { y: 22, autoAlpha: 0, scale: .94 }, { y: 0, autoAlpha: 1, scale: 1, duration: .8, delay: .72, ease: "back.out(1.5)" });
-      gsap.to(".cover-orbit", { rotate: 360, duration: 36, repeat: -1, ease: "none" });
-      gsap.to(".cover-orbit-inner", { rotate: -360, duration: 24, repeat: -1, ease: "none" });
+      // The cover orbit is animated in CSS so it stays reliable on touch devices
+      // even if browser/OS rendering changes GSAP transform handling.
     }, root);
     return () => ctx.revert();
   }, []);
 
   const handleOpen = () => {
+    if (leaving) return;
     setLeaving(true);
     window.setTimeout(onOpen, 760);
   };
