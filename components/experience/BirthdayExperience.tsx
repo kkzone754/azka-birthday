@@ -1,10 +1,14 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type RefObject } from "react";
+import dynamic from "next/dynamic";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
-import KnowledgeOrbit from "@/components/knowledge/KnowledgeOrbit";
+const KnowledgeOrbit = dynamic(() => import("@/components/knowledge/KnowledgeOrbit"), {
+  ssr: false,
+  loading: () => <div className="knowledge-orbit-3d knowledge-orbit-loading" aria-hidden="true" />,
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -361,39 +365,23 @@ function FinalReveal() {
 
 function CoverScreen({ onOpen }: { onOpen: () => void }) {
   const ref = useRef<HTMLElement | null>(null);
-  const openedRef = useRef(false);
-  const [leaving, setLeaving] = useState(false);
 
   useLayoutEffect(() => {
     const root = ref.current;
     if (!root) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo(".cover-kicker", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, ease: "power4.out" });
       gsap.fromTo(".cover-name", { y: 55, autoAlpha: 0, scale: .92, filter: "blur(10px)" }, { y: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1.15, delay: .1, ease: "power4.out" });
       gsap.fromTo(".cover-copy", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .75, delay: .5, ease: "power3.out" });
       gsap.fromTo(".cover-button", { y: 22, autoAlpha: 0, scale: .94 }, { y: 0, autoAlpha: 1, scale: 1, duration: .8, delay: .72, ease: "back.out(1.5)" });
-      // The cover orbit is animated in CSS so it stays reliable on touch devices
-      // even if browser/OS rendering changes GSAP transform handling.
     }, root);
+
     return () => ctx.revert();
   }, []);
 
-  const handleOpen = () => {
-    if (openedRef.current) return;
-    openedRef.current = true;
-    setLeaving(true);
-    onOpen();
-  };
-
-  const handlePointerUp = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    if (event.pointerType === "touch" || event.pointerType === "pen") {
-      event.preventDefault();
-    }
-    handleOpen();
-  };
-
   return (
-    <main ref={ref} className={`gift-cover ${leaving ? "is-leaving" : ""}`}>
+    <main ref={ref} className="gift-cover">
       <div className="cover-light" aria-hidden="true" />
       <div className="cover-grid" aria-hidden="true" />
       <div className="cover-orbit" aria-hidden="true">
@@ -402,60 +390,26 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
       <div className="cover-orbit-inner" aria-hidden="true">
         <div className="cover-orbit-inner-track"><span /><span /><span /><span /></div>
       </div>
+
       <div className="cover-content">
         <p className="cover-kicker">A DIGITAL BIRTHDAY GIFT · FOR AZKA</p>
         <p className="cover-name">AZKA<span>//</span></p>
         <h1>Something<br /><em>made to be explored.</em></h1>
         <p className="cover-copy">No ordinary birthday card.<br />Take a breath, then open it.</p>
+
         <button
           className="cover-button"
           type="button"
-          onPointerUp={handlePointerUp}
-          onTouchEnd={(event) => {
-            event.preventDefault();
-            handleOpen();
-          }}
-          onClick={handleOpen}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              handleOpen();
-            }
-          }}
+          onClick={onOpen}
           aria-label="Open the birthday experience"
         >
-          <span>OPEN THE EXPERIENCE</span><ArrowDown size={16} className="cover-arrow" />
+          <span>OPEN THE EXPERIENCE</span>
+          <ArrowDown size={16} className="cover-arrow" />
         </button>
       </div>
+
       <p className="cover-foot">TAP TO BEGIN · BEST EXPERIENCED SLOWLY</p>
     </main>
   );
 }
 
-export default function BirthdayExperience() {
-  const [started, setStarted] = useState(false);
-
-  useLayoutEffect(() => {
-    if (!started) return;
-    const id = window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh(true);
-    });
-    return () => window.cancelAnimationFrame(id);
-  }, [started]);
-
-  if (!started) return <CoverScreen onOpen={() => setStarted(true)} />;
-  return (
-    <main className="gift-experience">
-      <Opening />
-      <Mind />
-      <Curiosity />
-      <Builder />
-      <Explore />
-      <Ideas />
-      <Thinking />
-      <Noticed />
-      <Future />
-      <FinalReveal />
-    </main>
-  );
-}
