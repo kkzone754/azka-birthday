@@ -34,40 +34,54 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
       const glow = q(".gift-glow");
       const rings = q(".gift-ring");
 
-      gsap.set(reveal, { autoAlpha: 0, y: 55, scale: 0.96, filter: "blur(8px)" });
-      gsap.set(items, { autoAlpha: 0, y: 35, scale: 0.94, filter: "blur(5px)" });
-      gsap.set(glow, { autoAlpha: 0, scale: 0.7 });
-      gsap.set(rings, { autoAlpha: 0, scale: 0.7 });
+      gsap.set(intro, { autoAlpha: 0, y: 22 });
+      gsap.set(reveal, { autoAlpha: 0, y: 58, scale: 0.965, filter: "blur(9px)" });
+      gsap.set(items, { autoAlpha: 0, y: 38, scale: 0.97, filter: "blur(6px)" });
+      gsap.set(glow, { autoAlpha: 0, scale: 0.76 });
+      gsap.set(rings, { autoAlpha: 0, scale: 0.82 });
 
-      const entrance = gsap.timeline();
-      entrance
-        .to(intro, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power4.out" })
-        .to(glow, { autoAlpha: 1, scale: 1, duration: 1.1, ease: "power3.out" }, "-=0.65")
-        .to(rings, { autoAlpha: 1, scale: 1, duration: 1, stagger: 0.08, ease: "power3.out" }, "-=0.8")
-        .to(reveal, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.1, ease: "power4.out" }, "-=0.55");
-
-      gsap.to(glow, { scale: 1.16, opacity: 0.7, duration: 5.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-      gsap.to(rings, { rotate: 360, duration: 30, repeat: -1, ease: "none", stagger: 1.5 });
+      gsap.to(glow, {
+        scale: 1.12,
+        opacity: 0.68,
+        duration: 5.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+      gsap.to(rings, {
+        rotate: 360,
+        duration: 34,
+        repeat: -1,
+        ease: "none",
+        stagger: 1.4,
+      });
 
       const scroll = gsap.timeline({
+        defaults: { ease: "power3.out" },
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=3600",
-          scrub: 1.15,
+          end: "+=2500",
+          scrub: 0.75,
           pin: true,
           anticipatePin: 1,
+          fastScrollEnd: true,
+          preventOverlaps: "azka-story",
+          invalidateOnRefresh: true,
         },
       });
 
       scroll
-        .to(reveal, { y: 0, scale: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" })
-        .to({}, { duration: 1.2 })
-        .to(reveal, { y: -32, scale: 1.02, autoAlpha: 0, filter: "blur(4px)", duration: 0.55, ease: "power3.inOut" })
-        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.05, stagger: 0.16, ease: "power4.out" })
-        .to({}, { duration: 3.2 })
-        .to(items, { y: -6, autoAlpha: 0.94, duration: 0.35, ease: "power2.out" })
-        .to(glow, { scale: 1.55, autoAlpha: 0.28, duration: 0.9 }, "<");
+        .to(intro, { autoAlpha: 1, y: 0, duration: 0.38, ease: "power2.out" })
+        .to(glow, { autoAlpha: 1, scale: 1, duration: 0.65 }, "<")
+        .to(rings, { autoAlpha: 1, scale: 1, duration: 0.62, stagger: 0.06 }, "<")
+        .to(reveal, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.72, ease: "power4.out" }, "-=0.2")
+        .to({}, { duration: 0.72 })
+        .to(reveal, { autoAlpha: 0, y: -38, scale: 1.015, filter: "blur(5px)", duration: 0.45, ease: "power3.in" })
+        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.08, ease: "power4.out" }, "-=0.08")
+        .to({}, { duration: 1.9 })
+        .to(items, { y: -10, autoAlpha: 0.96, duration: 0.3, ease: "power2.out" })
+        .to(glow, { scale: 1.4, autoAlpha: 0.3, duration: 0.6 }, "<");
     }, section);
 
     return () => ctx.revert();
@@ -339,7 +353,7 @@ function FinalReveal() {
       const message = q(".final-message");
       gsap.set([words, message], { autoAlpha: 0, y: 40 });
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: section, start: "top top", end: "+=2500", scrub: 1.1, pin: true, anticipatePin: 1 },
+        scrollTrigger: { trigger: section, start: "top top", end: "+=1900", scrub: 0.8, pin: true, anticipatePin: 1, fastScrollEnd: true, preventOverlaps: "azka-story", invalidateOnRefresh: true },
       });
       tl.to(words, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power4.out" })
         .to(words, { autoAlpha: 0, y: -45, duration: 0.7, stagger: 0.05 })
