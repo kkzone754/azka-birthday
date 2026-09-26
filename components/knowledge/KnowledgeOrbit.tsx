@@ -31,8 +31,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
       return;
     }
 
-    const mobile = window.matchMedia("(max-width: 680px)");
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.3));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(host.clientWidth,host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
@@ -68,7 +67,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     });
 
     const pg=new THREE.BufferGeometry();
-    const count=mobile.matches ? 150 : 260, pos=new Float32Array(count*3);
+    const count=360, pos=new Float32Array(count*3);
     for(let i=0;i<count;i++){const j=i*3,r=2.6+Math.random()*2.7,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);pos[j]=r*Math.sin(p)*Math.cos(t);pos[j+1]=r*Math.cos(p)*.72;pos[j+2]=r*Math.sin(p)*Math.sin(t);}
     pg.setAttribute("position",new THREE.BufferAttribute(pos,3));
     const particles=new THREE.Points(pg,new THREE.PointsMaterial({color:0x9edfff,size:.022,transparent:true,opacity:.4}));
