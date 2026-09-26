@@ -53,7 +53,7 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=1350",
+          end: "+=2200",
           scrub: 1.15,
           pin: true,
           anticipatePin: 1,
@@ -61,9 +61,10 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
       });
 
       scroll
-        .to(reveal, { y: -65, scale: 1.08, autoAlpha: 0.15, filter: "blur(5px)", duration: 0.8 })
-        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, stagger: 0.12, ease: "power4.out" }, "-=0.15")
-        .to(items, { y: -18, autoAlpha: 0, filter: "blur(4px)", duration: 0.65, stagger: 0.06, ease: "power3.inOut" })
+        .to(reveal, { y: -45, scale: 1.04, autoAlpha: 0.2, filter: "blur(4px)", duration: 1.15 })
+        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.15, stagger: 0.18, ease: "power4.out" }, "-=0.1")
+        .to({}, { duration: 1.5 })
+        .to(items, { y: -12, autoAlpha: 0, filter: "blur(3px)", duration: 1.05, stagger: 0.08, ease: "power3.inOut" })
         .to(glow, { scale: 1.55, autoAlpha: 0.28, duration: 0.9 }, "<");
     }, section);
 
@@ -336,11 +337,12 @@ function FinalReveal() {
       const message = q(".final-message");
       gsap.set([words, message], { autoAlpha: 0, y: 40 });
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: section, start: "top top", end: "+=1600", scrub: 1.1, pin: true, anticipatePin: 1 },
+        scrollTrigger: { trigger: section, start: "top top", end: "+=2500", scrub: 1.1, pin: true, anticipatePin: 1 },
       });
       tl.to(words, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power4.out" })
         .to(words, { autoAlpha: 0, y: -45, duration: 0.7, stagger: 0.05 })
-        .to(message, { autoAlpha: 1, y: 0, duration: 1.1, ease: "power4.out" }, "-=0.2");
+        .to(message, { autoAlpha: 1, y: 0, duration: 1.2, ease: "power4.out" }, "-=0.2")
+        .to({}, { duration: 2.4 });
     }, section);
     return () => ctx.revert();
   }, []);
