@@ -446,37 +446,9 @@ button { color: inherit; }
 @keyframes orbit { to { transform: rotate(360deg); } }
 @keyframes blink { 50% { opacity: 0; } }
 
-@media (max-width: 760px) {
-  .topbar-meta > span:not(.status-dot) { display: none; }
-  .hero { min-height: 92svh; }
-  .hero-copy { padding-top: 5vh; }
-  .hero h1 { font-size: clamp(66px, 21vw, 110px); }
-  .hero-orbit { width: 125vw; right: -48%; top: 61%; opacity: .58; }
-  .hero-description { max-width: 330px; }
-  .mind-layout, .explorer-section { grid-template-columns: 1fr; }
-  .mind-visual { min-height: 390px; }
-  .story-copy { padding-bottom: 10px; }
-  .interest-stage { grid-template-columns: 1fr; min-height: 0; }
-  .interest-list { border-right: 0; border-bottom: 1px solid var(--line); }
-  .interest-detail { min-height: 370px; padding: 35px 25px; }
-  .detail-orbit { right: -150px; opacity: .6; }
-  .idea-grid { grid-template-columns: 1fr 1fr; }
-  .idea-card, .idea-card.large, .idea-card.wide { grid-column: span 1; min-height: 180px; }
-  .idea-card.large { min-height: 220px; }
-  .site-footer { flex-direction: column; }
-}
 
-@media (max-width: 390px) {
-  .section-pad { padding-inline: 16px; }
-  .hero h1 { font-size: 64px; }
-  .hero-orbit { width: 138vw; right: -60%; top: 63%; }
-  .chapter-nav { padding-inline: 12px; }
-  .section-heading h2, .ideas-heading h2 { font-size: 42px; }
-  .interest-node { grid-template-columns: 32px 1fr auto; padding: 12px; }
-  .mind-visual { min-height: 340px; }
-  .mind-core { width: 280px; }
-  .data-label { font-size: 6px; }
-}
+
+
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -868,36 +840,9 @@ button:focus-visible {
   line-height: 1.7;
 }
 
-@media (max-width: 760px) {
-  .hero-v2 { min-height: 92svh; padding-top: 92px; }
-  .intro-v2 h1 { font-size: clamp(58px, 19vw, 100px); }
-  .intro-line { max-width: 330px; }
-  .intro-orbit {
-    width: 124vw;
-    right: -48%;
-    top: 65%;
-    opacity: .5;
-  }
-  .story-section-v2 { padding-top: 100px; padding-bottom: 100px; }
-  .mind-v2-grid,
-  .constellation-v2 { grid-template-columns: 1fr; }
-  .mind-v2-visual { min-height: 370px; }
-  .mind-v2-core { width: 285px; }
-  .mind-v2-core:before { width: 285px; }
-  .mind-v2-core:after { width: 180px; }
-  .constellation-stage { width: min(94vw, 520px); min-height: 0; }
-  .constellation-detail { border-top: 0; }
-  .idea-flow { margin-right: -20px; }
-}
 
-@media (max-width: 390px) {
-  .hero-v2 { padding-inline: 16px; }
-  .intro-v2 h1 { font-size: 57px; }
-  .intro-orbit { width: 136vw; right: -59%; }
-  .story-section-v2 { padding-inline: 16px; }
-  .section-heading-v2 h2 { font-size: 42px; }
-  .constellation-node { width: 52px; height: 52px; }
-}
+
+
 
 
 /* =========================================================
@@ -1353,37 +1298,9 @@ button:focus-visible {
   color:rgba(139,215,255,.65);
 }
 
-@media (max-width: 680px) {
-  .gift-scene { min-height: 620px; }
-  .gift-content { width:min(100% - 28px, 920px); padding:56px 0; }
-  .gift-ring-a { width:120vw; height:58vw; }
-  .gift-ring-b { width:92vw; height:92vw; }
-  .gift-glow { width:90vw; height:90vw; }
-  .curiosity-orbit { height:330px; min-height:330px; }
-  .interest-node { width:102px; min-height:74px; padding:10px 7px; }
-  .interest-node small { font-size:8px; }
-  .interest-node:nth-child(1){top:3%}
-  .interest-node:nth-child(2){right:0;top:27%}
-  .interest-node:nth-child(3){right:7%;bottom:2%}
-  .interest-node:nth-child(4){left:7%;bottom:2%}
-  .interest-node:nth-child(5){left:0;top:27%}
-  .interest-node:nth-child(6){width:92px;height:92px}
-  .code-ritual { padding:18px 20px; }
-  .idea-sequence { gap:8px; }
-  .idea-sequence i { display:none; }
-  .idea-sequence span { min-width:118px; justify-content:center; }
-  .future-list { gap:16px; }
-}
 
-@media (max-width: 390px) {
-  .gift-scene { min-height: 590px; }
-  .gift-content { width:calc(100% - 24px); }
-  .gift-kicker,.gift-overline { font-size:8px; letter-spacing:.25em; }
-  .gift-body { font-size:12px; line-height:1.75; }
-  .curiosity-orbit { transform:scale(.9); transform-origin:center; width:111%; margin-left:-5.5%; }
-  .interest-node { width:94px; }
-  .final-message { width:calc(100% - 28px); }
-}
+
+
 
 @media (prefers-reduced-motion: reduce) {
   .gift-scene { scroll-behavior:auto; }
@@ -1461,10 +1378,7 @@ button:focus-visible {
   0%,100% { transform:translate(-50%,-50%) scale(.94); opacity:.42; }
   50% { transform:translate(-50%,-50%) scale(1.06); opacity:.8; }
 }
-@media (max-width:680px) {
-  .knowledge-orbit-3d { width:120vw; height:78vh; opacity:.56; }
-  .gift-curiosity .gift-content::before { width:120px; height:120px; }
-}
+
 @media (prefers-reduced-motion:reduce) {
   .gift-final::before { animation:none; }
   .gift-curiosity .interest-node:hover { transform:none; }
@@ -1500,7 +1414,7 @@ button:focus-visible {
 .future-constellation{position:absolute;inset:0;pointer-events:none}.future-constellation i,.future-constellation span{position:absolute;width:5px;height:5px;border-radius:50%;background:#a6e2ff;box-shadow:0 0 18px rgba(139,215,255,.75);animation:future-node 5s ease-in-out infinite}.future-constellation i:nth-child(1){left:12%;top:27%}.future-constellation i:nth-child(2){left:28%;top:67%}.future-constellation i:nth-child(3){left:48%;top:23%}.future-constellation i:nth-child(4){left:70%;top:61%}.future-constellation i:nth-child(5){left:85%;top:30%}.future-constellation i:nth-child(6){left:58%;top:80%}
 .gift-final .final-message::before{display:none}.gift-final .final-sign{display:none}
 @keyframes cover-breathe{0%,100%{transform:scale(.92);opacity:.55}50%{transform:scale(1.08);opacity:1}}@keyframes core-blink{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.35)}}@keyframes builder-scan{0%,100%{transform:translateY(-12%) rotate(22deg);opacity:.15}50%{transform:translateY(12%) rotate(22deg);opacity:.7}}@keyframes code-sweep{0%,25%{transform:translateX(-180%)}70%,100%{transform:translateX(700%)}}@keyframes explore-sweep{0%,100%{transform:translateX(-8%) rotate(-7deg);opacity:.05}50%{transform:translateX(8%) rotate(-7deg);opacity:.5}}@keyframes node-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes spark-drift{0%,100%{transform:translate3d(0,0,0);opacity:.15}50%{transform:translate3d(10px,-14px,0);opacity:.8}}@keyframes future-node{0%,100%{transform:scale(.8);opacity:.25}50%{transform:scale(1.25);opacity:.9}}
-@media(max-width:680px){.cover-content h1{font-size:clamp(3.6rem,16vw,6.6rem)}.cover-copy{margin-top:22px}.cover-button{margin-top:28px;min-height:50px;padding:0 20px;font-size:8px}.cover-foot{bottom:20px;font-size:7px;letter-spacing:.2em}.cover-orbit{width:125vw;height:62vw}.cover-orbit-inner{width:78vw;height:78vw}.accent-orb-a{left:4%;top:19%;width:62px;height:62px}.accent-orb-b{right:7%;bottom:18%;width:25px;height:25px}.gift-curiosity .knowledge-orbit-3d{width:132vw;height:74vh;opacity:.7}.curiosity-core{width:94px;height:94px;top:55%}.curiosity-core strong{font-size:12px}.interest-node{width:94px;min-height:70px;padding:9px 6px}.interest-node strong{font-size:8px}.interest-node small{font-size:7px}.interest-node:nth-child(2){right:0;top:25%}.interest-node:nth-child(3){right:4%;bottom:3%}.interest-node:nth-child(4){left:4%;bottom:3%}.interest-node:nth-child(5){left:0;top:25%}.interest-node:nth-child(6){left:50%;bottom:3%}}
+
 @media(prefers-reduced-motion:reduce){.cover-light,.cover-orbit,.cover-orbit-inner,.curiosity-core i,.builder-cursor,.code-ritual::after,.explore-sweep,.network-visual i,.network-visual span,.ideas-sparks i,.future-constellation i{animation:none!important}}
 
 /* STORY DEPTH PASS */
@@ -1527,726 +1441,142 @@ button:focus-visible {
 @keyframes sys-pulse{0%,100%{opacity:.15}50%{opacity:.7}}
 @keyframes thinking-ripple{0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.3}50%{transform:translate(-50%,-50%) scale(1.08);opacity:.75}}
 @keyframes trait-in{0%,100%{transform:translateX(0);opacity:.65}50%{transform:translateX(4px);opacity:1}}
-@media(max-width:680px){.mind-map{height:230px}.mind-map-core{width:64px;height:64px;font-size:8px}.mind-map button{min-width:78px;height:34px;font-size:7px}.build-lab{padding:18px 14px;border-radius:16px}.build-stage{min-height:108px}.system-map{height:270px}.system-core{width:70px;height:70px;font-size:8px}.sys-node{min-width:66px;font-size:6px}.thinking-traits{grid-template-columns:1fr}.thinking-ripple{width:270px;height:270px}.noticed-lines p{font-size:13px}}
+
 @media(prefers-reduced-motion:reduce){.mind-link,.thinking-ripple,.thinking-traits div,.sys-line{animation:none}}
 
 
-/* MOBILE-FIRST COVER RELIABILITY PASS */
-.gift-cover,
-.gift-cover * { -webkit-tap-highlight-color: transparent; }
-.gift-cover { touch-action: manipulation; }
-.gift-cover::before,
-.gift-cover::after,
-.cover-light,
-.cover-grid,
-.cover-orbit,
-.cover-orbit-inner,
-.cover-orbit i,
-.cover-orbit-inner span { pointer-events: none; }
-.cover-content { pointer-events: auto; z-index: 20; }
+
+
+/* DESKTOP MASTER PASS — the experience is intentionally designed for desktop */
+html, body {
+  min-width: 1180px;
+  overflow-x: hidden;
+}
+
+body {
+  background: #050608;
+  color: #f4f7fb;
+}
+
+.gift-experience {
+  min-width: 1180px;
+  overflow-x: clip;
+}
+
+.gift-scene {
+  height: 100svh;
+  min-height: 760px;
+}
+
+.gift-content {
+  width: min(1120px, calc(100% - 120px));
+  padding: 86px 0;
+}
+
+.gift-reveal h2 {
+  font-size: clamp(4.3rem, 6.3vw, 7.4rem);
+  line-height: .93;
+}
+
+.gift-body {
+  width: min(760px, 100%);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.gift-cover {
+  height: 100svh;
+  min-height: 760px;
+}
+
+.cover-content {
+  width: min(980px, calc(100% - 80px));
+}
+
+.cover-content h1 {
+  font-size: clamp(6rem, 10vw, 10.5rem);
+}
+
 .cover-button {
-  z-index: 30;
-  position: relative;
-  pointer-events: auto;
-  touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-  cursor: pointer;
-  min-width: min(310px, 88vw);
-  min-height: 58px;
-}
-.cover-button:active {
-  transform:scale(.98);
-}
-.cover-orbit {
-  animation: cover-orbit-spin 30s linear infinite;
-  will-change: transform;
-}
-.cover-orbit-inner {
-  animation: cover-orbit-inner-spin 22s linear infinite;
-  will-change: transform;
-}
-.cover-light { will-change: transform, opacity; }
-.cover-name,
-.cover-content h1,
-.cover-copy,
-.cover-button { position: relative; z-index: 21; }
-@keyframes cover-orbit-spin {
-  from { transform:translate(-50%,-50%) rotateX(66deg) rotateZ(0deg); }
-  to { transform:translate(-50%,-50%) rotateX(66deg) rotateZ(360deg); }
-}
-@keyframes cover-orbit-inner-spin {
-  from { transform:translate(-50%,-50%) rotateX(62deg) rotateY(10deg) rotateZ(0deg); }
-  to { transform:translate(-50%,-50%) rotateX(62deg) rotateY(10deg) rotateZ(-360deg); }
-}
-@media (max-width:680px) {
-  .gift-cover {
-    min-height:100svh;
-    height:100svh;
-    padding:
-      max(22px, env(safe-area-inset-top))
-      16px
-      max(22px, env(safe-area-inset-bottom))
-      16px;
-  }
-  .cover-content {
-    width:min(100%, 430px);
-    padding:0 4px;
-  }
-  .cover-kicker {
-    max-width:290px;
-    line-height:1.7;
-    letter-spacing:.22em;
-  }
-  .cover-name {
-    margin:18px 0 18px;
-    font-size:10px;
-    letter-spacing:.38em;
-  }
-  .cover-content h1 {
-    font-size:clamp(3.15rem, 16.5vw, 5.4rem);
-    line-height:.86;
-    letter-spacing:-.055em;
-  }
-  .cover-copy {
-    margin-top:22px;
-    max-width:300px;
-    font-size:13px;
-    line-height:1.65;
-  }
-  .cover-button {
-    margin-top:26px;
-    width:min(100%, 330px);
-    min-height:58px;
-    padding:0 18px;
-    justify-content:center;
-    gap:10px;
-    font-size:8px;
-    letter-spacing:.16em;
-  }
-  .cover-foot {
-    bottom:max(16px, env(safe-area-inset-bottom));
-    max-width:300px;
-    white-space:normal;
-    text-align:center;
-    line-height:1.6;
-  }
-  .cover-orbit {
-    width:150vw;
-    height:70vw;
-    opacity:.95;
-  }
-  .cover-orbit-inner {
-    width:92vw;
-    height:92vw;
-    opacity:.85;
-  }
-}
-@media (prefers-reduced-motion:reduce) {
-  .cover-orbit,
-  .cover-orbit-inner { animation:none; }
+  min-height: 56px;
+  padding-inline: 28px;
 }
 
-
-/* MOBILE COVER — deterministic touch + orbit rendering */
-.gift-cover .cover-orbit,
-.gift-cover .cover-orbit-inner {
-  animation-duration: 28s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-  transform-style: preserve-3d;
-}
-.gift-cover .cover-orbit {
-  animation-name: cover-orbit-spin;
-}
-.gift-cover .cover-orbit-inner {
-  animation-name: cover-orbit-inner-spin;
-}
-.gift-cover .cover-button {
-  touch-action: manipulation;
-}
-
-
-/* FINAL MOBILE COVER FIX
-   The orbit uses a static 3D shell + a separate rotating track so the
-   centering transform can never fight the animation transform. */
 .gift-cover .cover-orbit {
   transform: translate(-50%, -50%) rotateX(66deg);
-  transform-style: preserve-3d;
   border-color: transparent;
-  animation: none !important;
-  will-change: transform;
+  animation: none;
+}
+.gift-cover .cover-orbit-inner {
+  transform: translate(-50%, -50%) rotateX(62deg) rotateY(10deg);
+  border-color: transparent;
+  animation: none;
 }
 .gift-cover .cover-orbit-track,
 .gift-cover .cover-orbit-inner-track {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  transform-style: preserve-3d;
-  will-change: transform;
+  transform-origin: center;
 }
 .gift-cover .cover-orbit-track {
   border: 1px solid rgba(139,215,255,.22);
   box-shadow: 0 0 80px rgba(139,215,255,.07);
-  animation: cover-orbit-track-spin 12s linear infinite;
-  animation-play-state: running;
-  transform-origin: center center;
-}
-.gift-cover .cover-orbit-inner {
-  transform: translate(-50%, -50%) rotateX(62deg) rotateY(10deg);
-  transform-style: preserve-3d;
-  border-color: transparent;
-  animation: none !important;
+  animation: orbit-track 16s linear infinite;
 }
 .gift-cover .cover-orbit-inner-track {
-  border: 1px solid rgba(168,150,255,.16);
-  animation: cover-orbit-inner-track-spin 9s linear infinite;
-  animation-play-state: running;
-  transform-origin: center center;
-}
-@keyframes cover-orbit-track-spin {
-  from { transform: rotateZ(0deg); }
-  to { transform: rotateZ(360deg); }
-}
-@keyframes cover-orbit-inner-track-spin {
-  from { transform: rotateZ(0deg); }
-  to { transform: rotateZ(-360deg); }
+  border: 1px solid rgba(168,150,255,.17);
+  animation: orbit-track-reverse 11s linear infinite;
 }
 
-/* Keep the cover motion subtle, even when the OS asks for reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .gift-cover .cover-orbit-track { animation-duration: 36s; }
-  .gift-cover .cover-orbit-inner-track { animation-duration: 30s; }
+.knowledge-orbit-3d {
+  width: 760px;
+  height: 680px;
+  opacity: .9;
 }
 
-/* Pointer-first mobile interaction: the real button is always the top layer. */
-.gift-cover .cover-button {
-  pointer-events: auto !important;
-  position: relative;
-  z-index: 100 !important;
-  touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-
-/* CINEMATIC READING PASS — keep chapter endings readable on touch screens */
-.gift-scene .gift-content {
-  min-height: 100%;
-}
-
-.gift-scene .gift-reveal,
-.gift-scene .gift-items {
-  will-change: transform, opacity, filter;
-}
-
-@media (max-width: 680px) {
-  .gift-scene {
-    min-height: 100svh;
-  }
-
-  .gift-scene .gift-content {
-    width: min(100% - 28px, 520px);
-    padding: 54px 0 46px;
-  }
-
-  .gift-kicker,
-  .gift-overline {
-    font-size: 8px;
-    line-height: 1.55;
-    letter-spacing: .22em;
-  }
-
-  .gift-reveal h2 {
-    font-size: clamp(2.25rem, 10.2vw, 4.4rem);
-    line-height: .98;
-  }
-
-  .gift-body {
-    margin-top: 18px;
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  /* Chapter 6: four traits must stack cleanly instead of competing with the copy. */
-  .gift-thinking .gift-content {
-    justify-content: center;
-    padding-top: 48px;
-    padding-bottom: 40px;
-  }
-
-  .gift-thinking .gift-reveal {
-    max-width: 330px;
-  }
-
-  .gift-thinking .gift-reveal .gift-body {
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .gift-thinking .thinking-traits {
-    width: min(100%, 340px);
-    gap: 6px;
-    margin-top: 20px;
-  }
-
-  .gift-thinking .thinking-traits div {
-    min-height: 0;
-    padding: 11px 12px;
-  }
-
-  .gift-thinking .thinking-traits strong {
-    font-size: 8px;
-    line-height: 1.35;
-  }
-
-  .gift-thinking .thinking-traits span {
-    margin-top: 4px;
-    font-size: 10px;
-    line-height: 1.35;
-  }
-
-  /* Chapter 7 has the longest paragraph stack; keep every line inside the scene. */
-  .gift-noticed .gift-content {
-    width: min(100% - 28px, 520px);
-  }
-
-  .gift-noticed .noticed-copy {
-    max-width: 340px;
-  }
-
-  .gift-noticed .noticed-lines {
-    margin-top: 20px;
-  }
-
-  .gift-noticed .noticed-lines p {
-    padding: 9px 0;
-    line-height: 1.45;
-  }
-
-  .gift-noticed .gift-body {
-    margin-top: 18px;
-    line-height: 1.6;
-  }
-}
-
-
-/* Semantic diagram labels — not interactive controls */
-.mind-map-node {
-  position: absolute;
-  z-index: 3;
-  min-width: 92px;
-  min-height: 44px;
-  padding: 0 12px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(139,215,255,.18);
-  border-radius: 999px;
-  background: rgba(7,14,19,.68);
-  color: rgba(224,243,250,.7);
-  font: 8px var(--font-geist-mono), monospace;
-  letter-spacing: .18em;
+.gift-curiosity .gift-content {
+  z-index: 6;
   pointer-events: none;
 }
-.mind-map-node.m1 { left: 4%; top: 15%; }
-.mind-map-node.m2 { right: 4%; top: 15%; }
-.mind-map-node.m3 { left: 0; bottom: 8%; }
-.mind-map-node.m4 { right: 0; bottom: 8%; }
-
-/* FINAL MOBILE UX HARDENING — readable, stable, touch-first */
-@media (max-width: 680px) {
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .gift-experience {
-    width: 100%;
-    overflow-x: clip;
-  }
-
-  .gift-scene {
-    height: 100svh;
-    min-height: 100svh;
-    overflow: hidden;
-  }
-
-  .gift-scene .gift-content {
-    width: min(100% - 24px, 520px);
-    min-height: 100%;
-    padding:
-      max(42px, env(safe-area-inset-top))
-      0
-      max(42px, env(safe-area-inset-bottom));
-  }
-
-  .gift-intro,
-  .gift-overline {
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow-wrap: anywhere;
-  }
-
-  .gift-reveal {
-    width: 100%;
-  }
-
-  .gift-reveal h2 {
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: clamp(2.2rem, 10.5vw, 4rem);
-    line-height: .98;
-    letter-spacing: -.045em;
-    text-wrap: balance;
-  }
-
-  .gift-body {
-    max-width: 340px;
-    font-size: 13px;
-    line-height: 1.68;
-    text-wrap: pretty;
-  }
-
-  /* Decorative labels stay small; meaningful copy stays readable. */
-  .gift-kicker,
-  .gift-overline,
-  .mind-points span,
-  .system-caption {
-    font-size: 8px;
-    line-height: 1.55;
-  }
-
-  /* Non-interactive diagram labels should never pretend to be controls. */
-  .mind-map-node {
-    position: absolute;
-    z-index: 3;
-    min-width: 78px;
-    min-height: 44px;
-    padding: 0 10px;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(139,215,255,.18);
-    border-radius: 999px;
-    background: rgba(7,14,19,.68);
-    color: rgba(224,243,250,.7);
-    font: 8px var(--font-geist-mono), monospace;
-    letter-spacing: .16em;
-    pointer-events: none;
-  }
-
-  .mind-map-node.m1 { left: 2%; top: 12%; }
-  .mind-map-node.m2 { right: 2%; top: 12%; }
-  .mind-map-node.m3 { left: 0; bottom: 4%; }
-  .mind-map-node.m4 { right: 0; bottom: 4%; }
-
-  .mind-map {
-    width: min(100%, 500px);
-    height: 210px;
-    margin-top: 18px;
-  }
-
-  .mind-map-core {
-    width: 64px;
-    height: 64px;
-  }
-
-  /* Real controls get a comfortable touch area. */
-  .interest-node {
-    min-height: 72px;
-  }
-
-  .gift-curiosity .interest-node {
-    min-height: 72px;
-  }
-
-  .build-controls {
-    gap: 6px;
-    padding-bottom: 2px;
-    overscroll-behavior-inline: contain;
-  }
-
-  .build-controls button {
-    min-height: 44px;
-    padding: 8px 11px;
-  }
-
-  .system-map {
-    width: min(100%, 520px);
-    height: 238px;
-    margin-top: 14px;
-  }
-
-  .sys-node {
-    min-width: 72px;
-    min-height: 44px;
-    display: grid;
-    place-items: center;
-    padding: 8px 10px;
-    font-size: 7px;
-    pointer-events: none;
-  }
-
-  .system-core {
-    width: 70px;
-    height: 70px;
-  }
-
-  .system-caption {
-    bottom: 0;
-    max-width: 310px;
-  }
-
-  .idea-sequence {
-    margin-top: 24px;
-    gap: 7px;
-  }
-
-  .idea-sequence span {
-    min-width: 112px;
-    min-height: 40px;
-    padding: 9px 10px;
-    font-size: 8px;
-  }
-
-  .thinking-traits {
-    width: min(100%, 340px);
-    grid-template-columns: 1fr;
-    gap: 6px;
-    margin-top: 18px;
-  }
-
-  .thinking-traits div {
-    min-height: 0;
-    padding: 10px 12px;
-  }
-
-  .thinking-traits strong {
-    font-size: 8px;
-    line-height: 1.35;
-  }
-
-  .thinking-traits span {
-    margin-top: 4px;
-    font-size: 10px;
-    line-height: 1.35;
-  }
-
-  .noticed-copy {
-    width: min(100%, 340px);
-  }
-
-  .noticed-lines {
-    margin-top: 18px;
-    gap: 2px;
-  }
-
-  .noticed-lines p {
-    padding: 8px 0;
-    font-size: 13px;
-    line-height: 1.45;
-  }
-
-  .gift-noticed .gift-body {
-    margin-top: 16px;
-    line-height: 1.6;
-  }
-
-  .future-words {
-    font-size: clamp(1.55rem, 7vw, 3.5rem);
-    line-height: 1.12;
-    letter-spacing: .06em;
-  }
-
-  .future-list {
-    gap: 14px 18px;
-    margin-top: 28px;
-  }
-
-  .gift-final .final-word-wrap {
-    padding: 0 18px;
-  }
-
-  .final-word {
-    max-width: 340px;
-    font-size: 10px;
-    line-height: 1.5;
-    letter-spacing: .26em;
-  }
-
-  .final-message {
-    width: min(100% - 28px, 500px);
-  }
-
-  .final-message h2 {
-    font-size: clamp(2.8rem, 13vw, 5.2rem);
-    line-height: .92;
-  }
-
-  .final-message .gift-body {
-    font-size: 13px;
-    line-height: 1.62;
-  }
-
-  .gift-cover .cover-content h1 {
-    max-width: 340px;
-    font-size: clamp(3.4rem, 16vw, 5.6rem);
-    text-wrap: balance;
-  }
-
-  .gift-cover .cover-button {
-    min-width: min(310px, 88vw);
-    min-height: 58px;
-  }
+.gift-curiosity .interest-node {
+  pointer-events: auto;
 }
 
-@media (max-width: 360px) {
-  .gift-scene .gift-content {
-    width: calc(100% - 20px);
-    padding-top: 38px;
-    padding-bottom: 38px;
-  }
+.curiosity-orbit {
+  width: 760px;
+  height: 390px;
+}
 
-  .gift-reveal h2 {
-    font-size: clamp(2rem, 10vw, 3.5rem);
-  }
+.interest-node {
+  width: 136px;
+  min-height: 92px;
+}
 
-  .gift-body {
-    font-size: 12.5px;
-  }
+.build-lab {
+  width: 760px;
+}
 
-  .mind-map {
-    height: 195px;
-  }
+.system-map {
+  width: 760px;
+  height: 340px;
+}
 
-  .mind-map-node {
-    min-width: 72px;
-    font-size: 7px;
-  }
+.thinking-traits {
+  width: 760px;
+}
 
-  .curiosity-orbit {
-    height: 300px;
-    min-height: 300px;
-  }
+.noticed-copy {
+  max-width: 820px;
+}
 
-  .gift-curiosity .interest-node {
-    width: 88px;
-    min-height: 68px;
-  }
-
-  .thinking-traits div {
-    padding: 9px 10px;
-  }
+.final-message {
+  width: 720px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gift-scene .gift-reveal,
-  .gift-scene .gift-items {
-    will-change: auto;
-  }
-
   .gift-cover .cover-orbit-track,
   .gift-cover .cover-orbit-inner-track {
     animation: none !important;
-  }
-}
-
-
-/* MOBILE PLATFORM HARDENING */
-html,
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  overscroll-behavior-x: none;
-}
-
-body {
-  min-height: 100dvh;
-}
-
-img,
-svg,
-canvas,
-video {
-  max-width: 100%;
-}
-
-button,
-a {
-  touch-action: manipulation;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .primary-action:hover,
-  .chapter-nav button:hover,
-  .mind-map button:hover,
-  .sys-node:hover,
-  .idea-card:hover {
-    transform: translateY(-2px);
-  }
-}
-
-@media (max-width: 680px) {
-  .gift-cover,
-  .gift-scene {
-    height: 100dvh;
-    min-height: 100dvh;
-    min-height: 100svh;
-  }
-
-  .gift-cover {
-    padding-top: max(24px, env(safe-area-inset-top));
-    padding-bottom: max(24px, env(safe-area-inset-bottom));
-  }
-
-  .gift-scene .gift-content {
-    padding-top: max(40px, env(safe-area-inset-top));
-    padding-bottom: max(40px, env(safe-area-inset-bottom));
-  }
-
-  .cover-foot {
-    padding-inline: 12px;
-  }
-
-  .cover-button,
-  .interest-node,
-  .build-controls button {
-    min-height: 48px;
-  }
-
-  /* Keep cinematic decorations from becoming accidental scroll surfaces. */
-  .gift-glow,
-  .gift-ring,
-  .gift-noise,
-  .gift-grid,
-  .thinking-ripple,
-  .future-constellation,
-  .cover-light,
-  .cover-grid,
-  .cover-orbit,
-  .cover-orbit-inner {
-    pointer-events: none;
-  }
-}
-
-@media (max-width: 360px) {
-  .gift-scene .gift-content {
-    padding-left: 6px;
-    padding-right: 6px;
-  }
-
-  .gift-reveal h2 {
-    max-width: 320px;
-  }
-
-  .gift-body {
-    max-width: 320px;
   }
 }
