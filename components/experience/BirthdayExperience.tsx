@@ -413,3 +413,34 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
   );
 }
 
+
+function BirthdayExperience() {
+  const [started, setStarted] = useState(false);
+
+  useLayoutEffect(() => {
+    if (!started) return;
+    const id = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh(true);
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [started]);
+
+  if (!started) return <CoverScreen onOpen={() => setStarted(true)} />;
+
+  return (
+    <main className="gift-experience">
+      <Opening />
+      <Mind />
+      <Curiosity />
+      <Builder />
+      <Explore />
+      <Ideas />
+      <Thinking />
+      <Noticed />
+      <Future />
+      <FinalReveal />
+    </main>
+  );
+}
+
+export default BirthdayExperience;
