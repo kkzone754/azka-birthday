@@ -2156,3 +2156,97 @@ button:focus-visible {
     animation: none !important;
   }
 }
+
+
+/* MOBILE PLATFORM HARDENING */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .primary-action:hover,
+  .chapter-nav button:hover,
+  .mind-map button:hover,
+  .sys-node:hover,
+  .idea-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 680px) {
+  .gift-cover,
+  .gift-scene {
+    height: 100dvh;
+    min-height: 100dvh;
+    min-height: 100svh;
+  }
+
+  .gift-cover {
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
+  .gift-scene .gift-content {
+    padding-top: max(40px, env(safe-area-inset-top));
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
+  }
+
+  .cover-foot {
+    padding-inline: 12px;
+  }
+
+  .cover-button,
+  .interest-node,
+  .build-controls button {
+    min-height: 48px;
+  }
+
+  /* Keep cinematic decorations from becoming accidental scroll surfaces. */
+  .gift-glow,
+  .gift-ring,
+  .gift-noise,
+  .gift-grid,
+  .thinking-ripple,
+  .future-constellation,
+  .cover-light,
+  .cover-grid,
+  .cover-orbit,
+  .cover-orbit-inner {
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .gift-scene .gift-content {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .gift-reveal h2 {
+    max-width: 320px;
+  }
+
+  .gift-body {
+    max-width: 320px;
+  }
+}
