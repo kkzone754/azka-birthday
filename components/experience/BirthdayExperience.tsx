@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
@@ -385,7 +385,7 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
     onOpen();
   };
 
-  const handlePointerUp = (event: React.PointerEvent<HTMLButtonElement>) => {
+  const handlePointerUp = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (event.pointerType === "touch" || event.pointerType === "pen") {
       event.preventDefault();
     }
