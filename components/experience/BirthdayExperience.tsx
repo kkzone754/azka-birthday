@@ -411,6 +411,10 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
           className="cover-button"
           type="button"
           onPointerUp={handlePointerUp}
+          onTouchEnd={(event) => {
+            event.preventDefault();
+            handleOpen();
+          }}
           onClick={handleOpen}
           onKeyDown={(event) => {
             if (event.key === "Enter" || event.key === " ") {
@@ -418,7 +422,6 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
               handleOpen();
             }
           }}
-          disabled={false}
           aria-label="Open the birthday experience"
         >
           <span>OPEN THE EXPERIENCE</span><ArrowDown size={16} className="cover-arrow" />
