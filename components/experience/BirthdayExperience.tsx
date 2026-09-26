@@ -379,8 +379,10 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
 
   const handleOpen = () => {
     if (leaving) return;
+    // Open immediately on touch. The cover animation is visual only and must
+    // never block the experience on a mobile browser.
     setLeaving(true);
-    window.setTimeout(onOpen, 760);
+    onOpen();
   };
 
   return (
