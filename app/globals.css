@@ -1688,9 +1688,11 @@ button:focus-visible {
   will-change: transform;
 }
 .gift-cover .cover-orbit-track {
-  border: 1px solid rgba(139,215,255,.18);
-  box-shadow: 0 0 80px rgba(139,215,255,.05);
-  animation: cover-orbit-track-spin 18s linear infinite;
+  border: 1px solid rgba(139,215,255,.22);
+  box-shadow: 0 0 80px rgba(139,215,255,.07);
+  animation: cover-orbit-track-spin 12s linear infinite;
+  animation-play-state: running;
+  transform-origin: center center;
 }
 .gift-cover .cover-orbit-inner {
   transform: translate(-50%, -50%) rotateX(62deg) rotateY(10deg);
@@ -1699,8 +1701,10 @@ button:focus-visible {
   animation: none !important;
 }
 .gift-cover .cover-orbit-inner-track {
-  border: 1px solid rgba(168,150,255,.12);
-  animation: cover-orbit-inner-track-spin 14s linear infinite reverse;
+  border: 1px solid rgba(168,150,255,.16);
+  animation: cover-orbit-inner-track-spin 9s linear infinite;
+  animation-play-state: running;
+  transform-origin: center center;
 }
 @keyframes cover-orbit-track-spin {
   from { transform: rotateZ(0deg); }
@@ -1708,7 +1712,7 @@ button:focus-visible {
 }
 @keyframes cover-orbit-inner-track-spin {
   from { transform: rotateZ(0deg); }
-  to { transform: rotateZ(360deg); }
+  to { transform: rotateZ(-360deg); }
 }
 
 /* Keep the cover motion subtle, even when the OS asks for reduced motion. */
