@@ -116,10 +116,10 @@ function Mind() {
         </div>
         <div className="gift-items mind-map" aria-label="A living map of how ideas connect">
           <div className="mind-map-core">AZKA</div>
-          <button type="button"><span>LEARN</span></button>
-          <button type="button"><span>REMEMBER</span></button>
-          <button type="button"><span>QUESTION</span></button>
-          <button type="button"><span>CONNECT</span></button>
+          <span className="mind-map-node m1">LEARN</span>
+          <span className="mind-map-node m2">REMEMBER</span>
+          <span className="mind-map-node m3">QUESTION</span>
+          <span className="mind-map-node m4">CONNECT</span>
           <i className="mind-link l1" /><i className="mind-link l2" /><i className="mind-link l3" /><i className="mind-link l4" />
         </div>
         <div className="mind-points"><span>NOTICE</span><span>REMEMBER</span><span>CONNECT</span><span>LEARN</span></div>
@@ -222,10 +222,10 @@ function Explore() {
         </div>
         <div className="gift-items system-map">
           <div className="system-core">SYSTEM</div>
-          <button type="button" className="sys-node s1">INPUT</button>
-          <button type="button" className="sys-node s2">PATTERN</button>
-          <button type="button" className="sys-node s3">LOGIC</button>
-          <button type="button" className="sys-node s4">OUTPUT</button>
+          <span className="sys-node s1">INPUT</span>
+          <span className="sys-node s2">PATTERN</span>
+          <span className="sys-node s3">LOGIC</span>
+          <span className="sys-node s4">OUTPUT</span>
           <i className="sys-line a" /><i className="sys-line b" /><i className="sys-line c" /><i className="sys-line d" />
           <p className="system-caption">understand the system before trying to change it</p>
         </div>
