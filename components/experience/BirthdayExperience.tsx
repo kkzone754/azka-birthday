@@ -107,9 +107,15 @@ function Mind() {
           <p className="gift-body roman">Kabhi kabhi class mein question poora bhi nahi hota aur tumhare paas answer hota hai.</p>
           <p className="gift-body">Aur jab koi cheez interesting ho, tum usse sirf sun kar chhor nahi deti — tum usse samajhne ki koshish karti ho.</p>
         </div>
-        <div className="gift-items mind-points">
-          <span>NOTICE</span><span>REMEMBER</span><span>CONNECT</span><span>LEARN</span>
+        <div className="gift-items mind-map" aria-label="A living map of how ideas connect">
+          <div className="mind-map-core">AZKA</div>
+          <button type="button"><span>LEARN</span></button>
+          <button type="button"><span>REMEMBER</span></button>
+          <button type="button"><span>QUESTION</span></button>
+          <button type="button"><span>CONNECT</span></button>
+          <i className="mind-link l1" /><i className="mind-link l2" /><i className="mind-link l3" /><i className="mind-link l4" />
         </div>
+        <div className="mind-points"><span>NOTICE</span><span>REMEMBER</span><span>CONNECT</span><span>LEARN</span></div>
       </div>
     </section>
   );
@@ -155,6 +161,14 @@ function Curiosity() {
 function Builder() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
+  const [step, setStep] = useState(0);
+  const steps = [
+    ["01", "IDEA", "something starts as a thought"],
+    ["02", "EXPLORE", "questions turn it into a direction"],
+    ["03", "BUILD", "the idea becomes something real"],
+    ["04", "TEST", "find out what works"],
+    ["05", "IMPROVE", "make it a little better"],
+  ];
   return (
     <section ref={ref} className="gift-scene gift-builder">
       <div className="gift-glow" aria-hidden="true" />
@@ -164,12 +178,20 @@ function Builder() {
           <p className="gift-overline">LEARN → TRY → BUILD → IMPROVE</p>
           <h2>You don&apos;t just like<br /><span>technology. You like making things.</span></h2>
         </div>
-        <div className="gift-items code-ritual">
-          <span>const idea = curiosity;</span>
-          <span>learn();</span>
-          <span>build();</span>
-          <span>improve();</span>
-          <b>keep_going();</b>
+        <div className="gift-items build-lab">
+          <div className="build-track" aria-hidden="true"><span style={{ width: `${(step / 4) * 100}%` }} /></div>
+          <div className="build-stage">
+            <small>{steps[step][0]}</small>
+            <strong>{steps[step][1]}</strong>
+            <p>{steps[step][2]}</p>
+          </div>
+          <div className="build-controls">
+            {steps.map(([number, label], index) => (
+              <button key={number} type="button" className={step === index ? "is-active" : ""} onClick={() => setStep(index)}>
+                <span>{number}</span>{label}
+              </button>
+            ))}
+          </div>
         </div>
         <p className="gift-body">Coding is one way of turning a thought into something real.</p>
       </div>
@@ -191,8 +213,14 @@ function Explore() {
           <h2>Cyber isn&apos;t about<br /><span>breaking things.</span></h2>
           <p className="gift-body">It can be about being curious enough to understand how things work — and why they work that way.</p>
         </div>
-        <div className="gift-items network-visual" aria-hidden="true">
-          <i /><i /><i /><i /><i /><span /><span /><span />
+        <div className="gift-items system-map">
+          <div className="system-core">SYSTEM</div>
+          <button type="button" className="sys-node s1">INPUT</button>
+          <button type="button" className="sys-node s2">PATTERN</button>
+          <button type="button" className="sys-node s3">LOGIC</button>
+          <button type="button" className="sys-node s4">OUTPUT</button>
+          <i className="sys-line a" /><i className="sys-line b" /><i className="sys-line c" /><i className="sys-line d" />
+          <p className="system-caption">understand the system before trying to change it</p>
         </div>
       </div>
     </section>
@@ -220,6 +248,59 @@ function Ideas() {
   );
 }
 
+function Thinking() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  const traits = [
+    ["QUICK TO LEARN", "new information → understood → remembered"],
+    ["CURIOUS", "question → explore → discover"],
+    ["CREATIVE", "idea → experiment → possibility"],
+    ["SHARP", "pattern → connection → understanding"],
+  ];
+  return (
+    <section ref={ref} className="gift-scene gift-thinking">
+      <div className="thinking-ripple" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">06 / THE WAY YOU THINK</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">NOT A COMPLIMENT. JUST AN OBSERVATION.</p>
+          <h2>It&apos;s not only<br /><span>what you learn.</span></h2>
+          <p className="gift-body">It&apos;s the way you move from one question to the next.</p>
+        </div>
+        <div className="gift-items thinking-traits">
+          {traits.map(([title, flow], i) => (
+            <div key={title} style={{ "--i": i } as React.CSSProperties}>
+              <strong>{title}</strong><span>{flow}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Noticed() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-noticed">
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">07 / A LITTLE SOMETHING I NOTICED</p>
+        <div className="gift-reveal noticed-copy">
+          <p className="gift-overline">JUST SOMETHING I&apos;VE NOTICED</p>
+          <h2>You get curious about things<br /><span>other people might ignore.</span></h2>
+          <div className="noticed-lines">
+            <p>You learn quickly.</p>
+            <p>You remember surprisingly well.</p>
+            <p>And when something interests you, you want to understand it.</p>
+          </div>
+          <p className="gift-body roman">Bas isi liye yeh little world banaya — tumhari appearance ke around nahi, tumhari thinking ke around.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Future() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
@@ -229,7 +310,7 @@ function Future() {
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
       <div className="gift-content">
-        <p className="gift-intro gift-kicker">06 / THE FUTURE</p>
+        <p className="gift-intro gift-kicker">08 / THE FUTURE</p>
         <div className="gift-reveal">
           <p className="future-words">KEEP LEARNING.<br />KEEP BUILDING.<br /><em>KEEP ASKING.</em></p>
           <p className="gift-body roman">Bas aise hi seekhti raho, explore karti raho, aur apne ideas ko reality mein convert karti raho.</p>
@@ -332,6 +413,8 @@ export default function BirthdayExperience() {
       <Builder />
       <Explore />
       <Ideas />
+      <Thinking />
+      <Noticed />
       <Future />
       <FinalReveal />
     </main>
