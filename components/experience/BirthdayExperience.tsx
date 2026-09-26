@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
@@ -16,7 +16,7 @@ const interests = [
   { label: "BUSINESS", icon: Lightbulb, note: "ideas with a purpose" },
 ];
 
-function useCinematic(sectionRef: React.RefObject<HTMLElement | null>) {
+function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
   useLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
