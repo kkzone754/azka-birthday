@@ -1647,3 +1647,23 @@ button:focus-visible {
   .cover-orbit,
   .cover-orbit-inner { animation:none; }
 }
+
+
+/* MOBILE COVER — deterministic touch + orbit rendering */
+.gift-cover .cover-orbit,
+.gift-cover .cover-orbit-inner {
+  animation-duration: 28s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  transform-style: preserve-3d;
+}
+.gift-cover .cover-orbit {
+  animation-name: cover-orbit-spin;
+}
+.gift-cover .cover-orbit-inner {
+  animation-name: cover-orbit-inner-spin;
+}
+.gift-cover .cover-button {
+  touch-action: manipulation;
+}
