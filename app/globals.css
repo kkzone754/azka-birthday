@@ -1732,3 +1732,105 @@ button:focus-visible {
   -webkit-appearance: none;
   appearance: none;
 }
+
+
+/* CINEMATIC READING PASS — keep chapter endings readable on touch screens */
+.gift-scene .gift-content {
+  min-height: 100%;
+}
+
+.gift-scene .gift-reveal,
+.gift-scene .gift-items {
+  will-change: transform, opacity, filter;
+}
+
+@media (max-width: 680px) {
+  .gift-scene {
+    min-height: 100svh;
+  }
+
+  .gift-scene .gift-content {
+    width: min(100% - 28px, 520px);
+    padding: 54px 0 46px;
+  }
+
+  .gift-kicker,
+  .gift-overline {
+    font-size: 8px;
+    line-height: 1.55;
+    letter-spacing: .22em;
+  }
+
+  .gift-reveal h2 {
+    font-size: clamp(2.25rem, 10.2vw, 4.4rem);
+    line-height: .98;
+  }
+
+  .gift-body {
+    margin-top: 18px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  /* Chapter 6: four traits must stack cleanly instead of competing with the copy. */
+  .gift-thinking .gift-content {
+    justify-content: center;
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+
+  .gift-thinking .gift-reveal {
+    max-width: 330px;
+  }
+
+  .gift-thinking .gift-reveal .gift-body {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gift-thinking .thinking-traits {
+    width: min(100%, 340px);
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .gift-thinking .thinking-traits div {
+    min-height: 0;
+    padding: 11px 12px;
+  }
+
+  .gift-thinking .thinking-traits strong {
+    font-size: 8px;
+    line-height: 1.35;
+  }
+
+  .gift-thinking .thinking-traits span {
+    margin-top: 4px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  /* Chapter 7 has the longest paragraph stack; keep every line inside the scene. */
+  .gift-noticed .gift-content {
+    width: min(100% - 28px, 520px);
+  }
+
+  .gift-noticed .noticed-copy {
+    max-width: 340px;
+  }
+
+  .gift-noticed .noticed-lines {
+    margin-top: 20px;
+  }
+
+  .gift-noticed .noticed-lines p {
+    padding: 9px 0;
+    line-height: 1.45;
+  }
+
+  .gift-noticed .gift-body {
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+}
