@@ -14,11 +14,25 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const host = mount.current;
     if (!host) return;
 
+    // The cover screen must never depend on WebGL. If WebGL 2 is unavailable,
+    // keep this scene optional instead of allowing a renderer error to break the page.
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl2");
+    if (!gl) return;
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
     camera.position.z = 8.2;
-    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"low-power" });
-    renderer.setPixelRatio(Math.min(devicePixelRatio,1.35));
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"low-power" });
+    } catch {
+      return;
+    }
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.35));
     renderer.setSize(host.clientWidth,host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
