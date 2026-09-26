@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AZKA // THE SHARP MIND
 
-## Getting Started
+A cinematic, mobile-first interactive birthday experience built around the way Azka thinks — curiosity, learning, technology, creativity, systems, and ideas.
 
-First, run the development server:
+This is **not a normal birthday card** or a portfolio. It is a small interactive digital world where the story moves from curiosity and learning through code, systems, ideas, and reflection, ending with a simple birthday message for Azka.
+
+## Experience
+
+- **Opening:** AZKA// — *THE SHARP MIND*
+- **The Mind:** an interactive map of learning, memory, questions, and connections
+- **Curiosity:** AI, CODE, SCIENCE, CYBER, TECH, and BUSINESS as an interactive constellation
+- **The Builder:** IDEA → EXPLORE → BUILD → TEST → IMPROVE
+- **Explore:** a system/network map inspired by understanding how things work
+- **Building Ideas:** technology, creativity, experimentation, and iteration
+- **The Way You Think:** observations about quick learning, curiosity, creativity, and sharp thinking
+- **A Little Something I Noticed:** a sincere personal section
+- **The Future:** learn, explore, build, ask, stay curious
+- **Final Reveal:** a quiet *Happy Birthday, Azka.*
+
+## Design direction
+
+Dark OLED visuals, cinematic typography, subtle HUD/FUI details, layered depth, responsive motion, interactive nodes, lightweight Three.js 3D, and mobile-first touch-friendly interactions.
+
+The goal is **story first, effects second**: technology is the vocabulary, curiosity is the story, and Azka is the person.
+
+## Tech
+
+- Next.js
+- React
+- TypeScript
+- GSAP + ScrollTrigger
+- Three.js
+- Lucide icons
+- Vercel deployment
+
+## Local development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For mobile testing on the same Wi-Fi network, run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev -- -H 0.0.0.0
+```
 
-## Learn More
+Then open your PC's local IPv4 address on the phone, for example:
 
-To learn more about Next.js, take a look at the following resources:
+```
+http://192.168.x.x:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The project is connected to Vercel and is intended to be tested primarily on real mobile screen sizes before the final birthday delivery.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Live project: https://azka-birthday-mauve.vercel.app/
