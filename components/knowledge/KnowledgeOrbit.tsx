@@ -19,7 +19,6 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const canvas = document.createElement("canvas");
     const gl = canvas.getContext("webgl2");
     if (!gl) return;
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
