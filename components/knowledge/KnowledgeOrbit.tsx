@@ -31,7 +31,8 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
       return;
     }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.35));
+    const mobile = window.matchMedia("(max-width: 680px)");
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.3));
     renderer.setSize(host.clientWidth,host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
@@ -67,7 +68,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     });
 
     const pg=new THREE.BufferGeometry();
-    const count=320, pos=new Float32Array(count*3);
+    const count=mobile.matches ? 150 : 260, pos=new Float32Array(count*3);
     for(let i=0;i<count;i++){const j=i*3,r=2.6+Math.random()*2.7,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);pos[j]=r*Math.sin(p)*Math.cos(t);pos[j+1]=r*Math.cos(p)*.72;pos[j+2]=r*Math.sin(p)*Math.sin(t);}
     pg.setAttribute("position",new THREE.BufferAttribute(pos,3));
     const particles=new THREE.Points(pg,new THREE.PointsMaterial({color:0x9edfff,size:.022,transparent:true,opacity:.4}));
@@ -80,7 +81,12 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const ro=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
     ro.observe(host);
 
-    const clock=new THREE.Clock(); let frame=0;
+    const clock=new THREE.Clock(); let frame=0; let paused=false;
+    const setPaused=(value:boolean)=>{paused=value;};
+    const visibility=()=>setPaused(document.visibilityState !== "visible");
+    document.addEventListener("visibilitychange",visibility);
+    const io=new IntersectionObserver(([entry])=>setPaused(!entry.isIntersecting),{threshold:0.02});
+    io.observe(host);
     const tick=()=>{
       const t=clock.getElapsedTime();
       root.rotation.y += (target.x+t*.012-root.rotation.y)*.025;
@@ -98,7 +104,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     tick();
 
     return ()=>{
-      cancelAnimationFrame(frame); ro.disconnect(); host.removeEventListener("pointermove",move); renderer.dispose();
+      cancelAnimationFrame(frame); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange",visibility); host.removeEventListener("pointermove",move); renderer.dispose();
       [wire,inner,halo,...rings,...nodes].forEach((m)=>{m.geometry.dispose();(m.material as THREE.Material).dispose();});
       lines.forEach(l=>l.geometry.dispose()); materials.forEach(m=>m.dispose()); pg.dispose();(particles.material as THREE.Material).dispose();
       if(renderer.domElement.parentNode===host)host.removeChild(renderer.domElement);
