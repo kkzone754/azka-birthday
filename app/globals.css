@@ -1836,6 +1836,28 @@ button:focus-visible {
 }
 
 
+/* Semantic diagram labels — not interactive controls */
+.mind-map-node {
+  position: absolute;
+  z-index: 3;
+  min-width: 92px;
+  min-height: 44px;
+  padding: 0 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(139,215,255,.18);
+  border-radius: 999px;
+  background: rgba(7,14,19,.68);
+  color: rgba(224,243,250,.7);
+  font: 8px var(--font-geist-mono), monospace;
+  letter-spacing: .18em;
+  pointer-events: none;
+}
+.mind-map-node.m1 { left: 4%; top: 15%; }
+.mind-map-node.m2 { right: 4%; top: 15%; }
+.mind-map-node.m3 { left: 0; bottom: 8%; }
+.mind-map-node.m4 { right: 0; bottom: 8%; }
+
 /* FINAL MOBILE UX HARDENING — readable, stable, touch-first */
 @media (max-width: 680px) {
   html, body {
