@@ -1834,3 +1834,303 @@ button:focus-visible {
     line-height: 1.6;
   }
 }
+
+
+/* FINAL MOBILE UX HARDENING — readable, stable, touch-first */
+@media (max-width: 680px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .gift-experience {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .gift-scene {
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .gift-scene .gift-content {
+    width: min(100% - 24px, 520px);
+    min-height: 100%;
+    padding:
+      max(42px, env(safe-area-inset-top))
+      0
+      max(42px, env(safe-area-inset-bottom));
+  }
+
+  .gift-intro,
+  .gift-overline {
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-wrap: anywhere;
+  }
+
+  .gift-reveal {
+    width: 100%;
+  }
+
+  .gift-reveal h2 {
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(2.2rem, 10.5vw, 4rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+  }
+
+  .gift-body {
+    max-width: 340px;
+    font-size: 13px;
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+
+  /* Decorative labels stay small; meaningful copy stays readable. */
+  .gift-kicker,
+  .gift-overline,
+  .mind-points span,
+  .system-caption {
+    font-size: 8px;
+    line-height: 1.55;
+  }
+
+  /* Non-interactive diagram labels should never pretend to be controls. */
+  .mind-map-node {
+    position: absolute;
+    z-index: 3;
+    min-width: 78px;
+    min-height: 44px;
+    padding: 0 10px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(139,215,255,.18);
+    border-radius: 999px;
+    background: rgba(7,14,19,.68);
+    color: rgba(224,243,250,.7);
+    font: 8px var(--font-geist-mono), monospace;
+    letter-spacing: .16em;
+    pointer-events: none;
+  }
+
+  .mind-map-node.m1 { left: 2%; top: 12%; }
+  .mind-map-node.m2 { right: 2%; top: 12%; }
+  .mind-map-node.m3 { left: 0; bottom: 4%; }
+  .mind-map-node.m4 { right: 0; bottom: 4%; }
+
+  .mind-map {
+    width: min(100%, 500px);
+    height: 210px;
+    margin-top: 18px;
+  }
+
+  .mind-map-core {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Real controls get a comfortable touch area. */
+  .interest-node {
+    min-height: 72px;
+  }
+
+  .gift-curiosity .interest-node {
+    min-height: 72px;
+  }
+
+  .build-controls {
+    gap: 6px;
+    padding-bottom: 2px;
+    overscroll-behavior-inline: contain;
+  }
+
+  .build-controls button {
+    min-height: 44px;
+    padding: 8px 11px;
+  }
+
+  .system-map {
+    width: min(100%, 520px);
+    height: 238px;
+    margin-top: 14px;
+  }
+
+  .sys-node {
+    min-width: 72px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 8px 10px;
+    font-size: 7px;
+    pointer-events: none;
+  }
+
+  .system-core {
+    width: 70px;
+    height: 70px;
+  }
+
+  .system-caption {
+    bottom: 0;
+    max-width: 310px;
+  }
+
+  .idea-sequence {
+    margin-top: 24px;
+    gap: 7px;
+  }
+
+  .idea-sequence span {
+    min-width: 112px;
+    min-height: 40px;
+    padding: 9px 10px;
+    font-size: 8px;
+  }
+
+  .thinking-traits {
+    width: min(100%, 340px);
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-top: 18px;
+  }
+
+  .thinking-traits div {
+    min-height: 0;
+    padding: 10px 12px;
+  }
+
+  .thinking-traits strong {
+    font-size: 8px;
+    line-height: 1.35;
+  }
+
+  .thinking-traits span {
+    margin-top: 4px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .noticed-copy {
+    width: min(100%, 340px);
+  }
+
+  .noticed-lines {
+    margin-top: 18px;
+    gap: 2px;
+  }
+
+  .noticed-lines p {
+    padding: 8px 0;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .gift-noticed .gift-body {
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .future-words {
+    font-size: clamp(1.55rem, 7vw, 3.5rem);
+    line-height: 1.12;
+    letter-spacing: .06em;
+  }
+
+  .future-list {
+    gap: 14px 18px;
+    margin-top: 28px;
+  }
+
+  .gift-final .final-word-wrap {
+    padding: 0 18px;
+  }
+
+  .final-word {
+    max-width: 340px;
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: .26em;
+  }
+
+  .final-message {
+    width: min(100% - 28px, 500px);
+  }
+
+  .final-message h2 {
+    font-size: clamp(2.8rem, 13vw, 5.2rem);
+    line-height: .92;
+  }
+
+  .final-message .gift-body {
+    font-size: 13px;
+    line-height: 1.62;
+  }
+
+  .gift-cover .cover-content h1 {
+    max-width: 340px;
+    font-size: clamp(3.4rem, 16vw, 5.6rem);
+    text-wrap: balance;
+  }
+
+  .gift-cover .cover-button {
+    min-width: min(310px, 88vw);
+    min-height: 58px;
+  }
+}
+
+@media (max-width: 360px) {
+  .gift-scene .gift-content {
+    width: calc(100% - 20px);
+    padding-top: 38px;
+    padding-bottom: 38px;
+  }
+
+  .gift-reveal h2 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .gift-body {
+    font-size: 12.5px;
+  }
+
+  .mind-map {
+    height: 195px;
+  }
+
+  .mind-map-node {
+    min-width: 72px;
+    font-size: 7px;
+  }
+
+  .curiosity-orbit {
+    height: 300px;
+    min-height: 300px;
+  }
+
+  .gift-curiosity .interest-node {
+    width: 88px;
+    min-height: 68px;
+  }
+
+  .thinking-traits div {
+    padding: 9px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gift-scene .gift-reveal,
+  .gift-scene .gift-items {
+    will-change: auto;
+  }
+
+  .gift-cover .cover-orbit-track,
+  .gift-cover .cover-orbit-inner-track {
+    animation: none !important;
+  }
+}
