@@ -77,7 +77,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
       inner.scale.setScalar(1+Math.sin(t*1.8)*.05); halo.rotation.z=-t*.05;
       rings.forEach(r=>{r.rotation.y+=r.userData.speed*.012;});
       nodes.forEach((n,i)=>{const on=i===active.current,s=on?1.45+Math.sin(t*4)*.08:1;n.scale.lerp(new THREE.Vector3(s,s,s),.12);(n.material as THREE.MeshBasicMaterial).opacity+=((on?1:.55)-(n.material as THREE.MeshBasicMaterial).opacity)*.08;});
-      materials.forEach((m,i)=>m.opacity+=((i===active.current?.3:.055)-m.opacity)*.08);
+      materials.forEach((m,i)=>m.opacity+=((i===active.current ? .3 : .055)-m.opacity)*.08);
       particles.rotation.y=t*.006;
       renderer.render(scene,camera);
       frame=requestAnimationFrame(tick);
