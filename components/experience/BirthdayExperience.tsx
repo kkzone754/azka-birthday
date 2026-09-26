@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
+
 const KnowledgeOrbit = dynamic(() => import("@/components/knowledge/KnowledgeOrbit"), {
   ssr: false,
   loading: () => <div className="knowledge-orbit-3d knowledge-orbit-loading" aria-hidden="true" />,
@@ -13,12 +13,12 @@ const KnowledgeOrbit = dynamic(() => import("@/components/knowledge/KnowledgeOrb
 gsap.registerPlugin(ScrollTrigger);
 
 const interests = [
-  { label: "AI", icon: Cpu, note: "what machines can learn" },
-  { label: "CODE", icon: Code2, note: "ideas made real" },
-  { label: "SCIENCE", icon: FlaskConical, note: "asking why" },
-  { label: "CYBER", icon: LockKeyhole, note: "understanding systems" },
-  { label: "TECH", icon: Network, note: "what can be built" },
-  { label: "BUSINESS", icon: Lightbulb, note: "ideas with a purpose" },
+  { label: "AI", glyph: "AI", note: "what machines can learn" },
+  { label: "CODE", glyph: "</>", note: "ideas made real" },
+  { label: "SCIENCE", glyph: "∿", note: "asking why" },
+  { label: "CYBER", glyph: "⌘", note: "understanding systems" },
+  { label: "TECH", glyph: "◇", note: "what can be built" },
+  { label: "BUSINESS", glyph: "↗", note: "ideas with a purpose" },
 ];
 
 function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
@@ -89,7 +89,7 @@ function Opening() {
           <div className="gift-rule" />
           <p className="gift-subtitle">Some minds don&apos;t just collect answers.<br />They keep asking why.</p>
         </div>
-        <div className="gift-scroll"><ArrowDown size={14} /> scroll slowly</div>
+        <div className="gift-scroll"><span aria-hidden="true">↓</span> scroll slowly</div>
       </div>
     </section>
   );
@@ -143,7 +143,7 @@ function Curiosity() {
           <h2>Questions become<br /><span>directions.</span></h2>
         </div>
         <div className="gift-items curiosity-orbit">
-          {interests.map(({ label, icon: Icon, note }, index) => (
+          {interests.map(({ label, glyph, note }, index) => (
             <button
               className={`interest-node ${active === index ? "is-active" : ""}`}
               key={label}
@@ -151,7 +151,7 @@ function Curiosity() {
               onClick={() => setActive(index)}
               aria-label={`${label}: ${note}`}
             >
-              <Icon size={16} strokeWidth={1.5} />
+              <span className="interest-glyph" aria-hidden="true">{glyph}</span>
               <strong>{label}</strong>
               <small>{note}</small>
             </button>
@@ -404,7 +404,7 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
           aria-label="Open the birthday experience"
         >
           <span>OPEN THE EXPERIENCE</span>
-          <ArrowDown size={16} className="cover-arrow" />
+          <span className="cover-arrow" aria-hidden="true">↓</span>
         </button>
       </div>
 
