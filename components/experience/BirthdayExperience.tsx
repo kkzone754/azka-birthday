@@ -361,6 +361,7 @@ function FinalReveal() {
 
 function CoverScreen({ onOpen }: { onOpen: () => void }) {
   const ref = useRef<HTMLElement | null>(null);
+  const openedRef = useRef(false);
   const [leaving, setLeaving] = useState(false);
 
   useLayoutEffect(() => {
@@ -378,25 +379,48 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
   }, []);
 
   const handleOpen = () => {
-    if (leaving) return;
-    // Open immediately on touch. The cover animation is visual only and must
-    // never block the experience on a mobile browser.
+    if (openedRef.current) return;
+    openedRef.current = true;
     setLeaving(true);
     onOpen();
+  };
+
+  const handlePointerUp = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType === "touch" || event.pointerType === "pen") {
+      event.preventDefault();
+    }
+    handleOpen();
   };
 
   return (
     <main ref={ref} className={`gift-cover ${leaving ? "is-leaving" : ""}`}>
       <div className="cover-light" aria-hidden="true" />
       <div className="cover-grid" aria-hidden="true" />
-      <div className="cover-orbit" aria-hidden="true"><i /><i /><i /></div>
-      <div className="cover-orbit-inner" aria-hidden="true"><span /><span /><span /><span /></div>
+      <div className="cover-orbit" aria-hidden="true">
+        <div className="cover-orbit-track"><i /><i /><i /></div>
+      </div>
+      <div className="cover-orbit-inner" aria-hidden="true">
+        <div className="cover-orbit-inner-track"><span /><span /><span /><span /></div>
+      </div>
       <div className="cover-content">
         <p className="cover-kicker">A DIGITAL BIRTHDAY GIFT · FOR AZKA</p>
         <p className="cover-name">AZKA<span>//</span></p>
         <h1>Something<br /><em>made to be explored.</em></h1>
         <p className="cover-copy">No ordinary birthday card.<br />Take a breath, then open it.</p>
-        <button className="cover-button" type="button" onClick={handleOpen} disabled={leaving}>
+        <button
+          className="cover-button"
+          type="button"
+          onPointerUp={handlePointerUp}
+          onClick={handleOpen}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              handleOpen();
+            }
+          }}
+          disabled={false}
+          aria-label="Open the birthday experience"
+        >
           <span>OPEN THE EXPERIENCE</span><ArrowDown size={16} className="cover-arrow" />
         </button>
       </div>
@@ -407,6 +431,15 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
 
 export default function BirthdayExperience() {
   const [started, setStarted] = useState(false);
+
+  useLayoutEffect(() => {
+    if (!started) return;
+    const id = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh(true);
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [started]);
+
   if (!started) return <CoverScreen onOpen={() => setStarted(true)} />;
   return (
     <main className="gift-experience">
