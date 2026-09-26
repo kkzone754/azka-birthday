@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, type RefObject } from "react";
+import { useLayoutEffect, useRef, useState, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
@@ -60,8 +60,7 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
         .to(reveal, { y: -65, scale: 1.08, autoAlpha: 0.15, filter: "blur(5px)", duration: 0.8 })
         .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, stagger: 0.12, ease: "power4.out" }, "-=0.15")
         .to(items, { y: -18, autoAlpha: 0, filter: "blur(4px)", duration: 0.65, stagger: 0.06, ease: "power3.inOut" })
-        .to(reveal, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, "-=0.2")
-        .to(glow, { scale: 1.55, autoAlpha: 0.45, duration: 0.9 }, "<");
+        .to(glow, { scale: 1.55, autoAlpha: 0.28, duration: 0.9 }, "<");
     }, section);
 
     return () => ctx.revert();
@@ -119,25 +118,29 @@ function Mind() {
 function Curiosity() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
-  return (
-    <section ref={ref} className="gift-scene gift-curiosity">
+  const [active, setActive] = useState(0);\n  return (\n    <section ref={ref} className="gift-scene gift-curiosity">
       <div className="gift-glow" aria-hidden="true" />
       <div className="gift-ring gift-ring-a" aria-hidden="true" />
       <div className="gift-ring gift-ring-b" aria-hidden="true" />
-      <KnowledgeOrbit />
-      <div className="gift-content">
+      <KnowledgeOrbit activeIndex={active} />\n      <div className="curiosity-core" aria-hidden="true"><span>CURIOUS</span><strong>MIND</strong><i /></div>\n      <div className="gift-content">
         <p className="gift-intro gift-kicker">02 / CURIOSITY</p>
         <div className="gift-reveal">
           <p className="gift-overline">A FEW THINGS YOUR MIND KEEPS CIRCLING BACK TO</p>
           <h2>Questions become<br /><span>directions.</span></h2>
         </div>
         <div className="gift-items curiosity-orbit">
-          {interests.map(({ label, icon: Icon, note }) => (
-            <div className="interest-node" key={label}>
+          {interests.map(({ label, icon: Icon, note }, index) => (
+            <button
+              className={`interest-node ${active === index ? "is-active" : ""}`}
+              key={label}
+              type="button"
+              onClick={() => setActive(index)}
+              aria-label={`${label}: ${note}`}
+            >
               <Icon size={16} strokeWidth={1.5} />
               <strong>{label}</strong>
               <small>{note}</small>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -272,7 +275,52 @@ function FinalReveal() {
   );
 }
 
+function CoverScreen({ onOpen }: { onOpen: () => void }) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [leaving, setLeaving] = useState(false);
+
+  useLayoutEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".cover-kicker", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, ease: "power4.out" });
+      gsap.fromTo(".cover-name", { y: 55, autoAlpha: 0, scale: .92, filter: "blur(10px)" }, { y: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1.15, delay: .1, ease: "power4.out" });
+      gsap.fromTo(".cover-copy", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .75, delay: .5, ease: "power3.out" });
+      gsap.fromTo(".cover-button", { y: 22, autoAlpha: 0, scale: .94 }, { y: 0, autoAlpha: 1, scale: 1, duration: .8, delay: .72, ease: "back.out(1.5)" });
+      gsap.to(".cover-orbit", { rotate: 360, duration: 36, repeat: -1, ease: "none" });
+      gsap.to(".cover-orbit-inner", { rotate: -360, duration: 24, repeat: -1, ease: "none" });
+    }, root);
+    return () => ctx.revert();
+  }, []);
+
+  const handleOpen = () => {
+    setLeaving(true);
+    window.setTimeout(onOpen, 760);
+  };
+
+  return (
+    <main ref={ref} className={`gift-cover ${leaving ? "is-leaving" : ""}`}>
+      <div className="cover-light" aria-hidden="true" />
+      <div className="cover-grid" aria-hidden="true" />
+      <div className="cover-orbit" aria-hidden="true"><i /><i /><i /></div>
+      <div className="cover-orbit-inner" aria-hidden="true"><span /><span /><span /><span /></div>
+      <div className="cover-content">
+        <p className="cover-kicker">A DIGITAL BIRTHDAY GIFT · FOR AZKA</p>
+        <p className="cover-name">AZKA<span>//</span></p>
+        <h1>Something<br /><em>made to be explored.</em></h1>
+        <p className="cover-copy">No ordinary birthday card.<br />Take a breath, then open it.</p>
+        <button className="cover-button" type="button" onClick={handleOpen} disabled={leaving}>
+          <span>OPEN THE EXPERIENCE</span><ArrowDown size={16} className="cover-arrow" />
+        </button>
+      </div>
+      <p className="cover-foot">TAP TO BEGIN · BEST EXPERIENCED SLOWLY</p>
+    </main>
+  );
+}
+
 export default function BirthdayExperience() {
+  const [started, setStarted] = useState(false);
+  if (!started) return <CoverScreen onOpen={() => setStarted(true)} />;
   return (
     <main className="gift-experience">
       <Opening />
