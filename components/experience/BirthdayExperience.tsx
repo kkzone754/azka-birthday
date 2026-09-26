@@ -1,0 +1,290 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowDown, Code2, Cpu, FlaskConical, Lightbulb, LockKeyhole, Network } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const interests = [
+  { label: "AI", icon: Cpu, note: "what machines can learn" },
+  { label: "CODE", icon: Code2, note: "ideas made real" },
+  { label: "SCIENCE", icon: FlaskConical, note: "asking why" },
+  { label: "CYBER", icon: LockKeyhole, note: "understanding systems" },
+  { label: "TECH", icon: Network, note: "what can be built" },
+  { label: "BUSINESS", icon: Lightbulb, note: "ideas with a purpose" },
+];
+
+function useCinematic(sectionRef: React.RefObject<HTMLElement | null>) {
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(section);
+      const intro = q(".gift-intro");
+      const reveal = q(".gift-reveal");
+      const items = q(".gift-item");
+      const glow = q(".gift-glow");
+      const rings = q(".gift-ring");
+
+      gsap.set(reveal, { autoAlpha: 0, y: 55, scale: 0.96, filter: "blur(8px)" });
+      gsap.set(items, { autoAlpha: 0, y: 35, scale: 0.94, filter: "blur(5px)" });
+      gsap.set(glow, { autoAlpha: 0, scale: 0.7 });
+      gsap.set(rings, { autoAlpha: 0, scale: 0.7 });
+
+      const entrance = gsap.timeline();
+      entrance
+        .to(intro, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power4.out" })
+        .to(glow, { autoAlpha: 1, scale: 1, duration: 1.1, ease: "power3.out" }, "-=0.65")
+        .to(rings, { autoAlpha: 1, scale: 1, duration: 1, stagger: 0.08, ease: "power3.out" }, "-=0.8")
+        .to(reveal, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.1, ease: "power4.out" }, "-=0.55");
+
+      gsap.to(glow, { scale: 1.16, opacity: 0.7, duration: 5.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(rings, { rotate: 360, duration: 30, repeat: -1, ease: "none", stagger: 1.5 });
+
+      const scroll = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=1350",
+          scrub: 1.15,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+
+      scroll
+        .to(reveal, { y: -65, scale: 1.08, autoAlpha: 0.15, filter: "blur(5px)", duration: 0.8 })
+        .to(items, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, stagger: 0.12, ease: "power4.out" }, "-=0.15")
+        .to(items, { y: -18, autoAlpha: 0, filter: "blur(4px)", duration: 0.65, stagger: 0.06, ease: "power3.inOut" })
+        .to(reveal, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, "-=0.2")
+        .to(glow, { scale: 1.55, autoAlpha: 0.45, duration: 0.9 }, "<");
+    }, section);
+
+    return () => ctx.revert();
+  }, [sectionRef]);
+}
+
+function Opening() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+
+  return (
+    <section ref={ref} className="gift-scene gift-opening">
+      <div className="gift-noise" aria-hidden="true" />
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-ring gift-ring-a" aria-hidden="true" />
+      <div className="gift-ring gift-ring-b" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">INITIALIZING A SMALL SURPRISE</p>
+        <div className="gift-reveal">
+          <p className="gift-name">AZKA<span>//</span></p>
+          <h1>THE SHARP<br /><em>MIND</em></h1>
+          <div className="gift-rule" />
+          <p className="gift-subtitle">Some minds don&apos;t just collect answers.<br />They keep asking why.</p>
+        </div>
+        <div className="gift-scroll"><ArrowDown size={14} /> scroll slowly</div>
+      </div>
+    </section>
+  );
+}
+
+function Mind() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-mind">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-ring gift-ring-a" aria-hidden="true" />
+      <div className="gift-ring gift-ring-b" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">01 / THE MIND</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">QUICK TO NOTICE · QUICK TO CONNECT</p>
+          <h2>There&apos;s a reason<br /><span>you remember things so quickly.</span></h2>
+          <p className="gift-body roman">Kabhi kabhi class mein question poora bhi nahi hota aur tumhare paas answer hota hai.</p>
+          <p className="gift-body">Aur jab koi cheez interesting ho, tum usse sirf sun kar chhor nahi deti — tum usse samajhne ki koshish karti ho.</p>
+        </div>
+        <div className="gift-items mind-points">
+          <span>NOTICE</span><span>REMEMBER</span><span>CONNECT</span><span>LEARN</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Curiosity() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-curiosity">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-ring gift-ring-a" aria-hidden="true" />
+      <div className="gift-ring gift-ring-b" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">02 / CURIOSITY</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">A FEW THINGS YOUR MIND KEEPS CIRCLING BACK TO</p>
+          <h2>Questions become<br /><span>directions.</span></h2>
+        </div>
+        <div className="gift-items curiosity-orbit">
+          {interests.map(({ label, icon: Icon, note }) => (
+            <div className="interest-node" key={label}>
+              <Icon size={16} strokeWidth={1.5} />
+              <strong>{label}</strong>
+              <small>{note}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Builder() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-builder">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">03 / THE BUILDER</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">LEARN → TRY → BUILD → IMPROVE</p>
+          <h2>You don&apos;t just like<br /><span>technology. You like making things.</span></h2>
+        </div>
+        <div className="gift-items code-ritual">
+          <span>const idea = curiosity;</span>
+          <span>learn();</span>
+          <span>build();</span>
+          <span>improve();</span>
+          <b>keep_going();</b>
+        </div>
+        <p className="gift-body">Coding is one way of turning a thought into something real.</p>
+      </div>
+    </section>
+  );
+}
+
+function Explore() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-explore">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-grid" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">04 / EXPLORE</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">SYSTEMS · PATTERNS · QUESTIONS</p>
+          <h2>Cyber isn&apos;t about<br /><span>breaking things.</span></h2>
+          <p className="gift-body">It can be about being curious enough to understand how things work — and why they work that way.</p>
+        </div>
+        <div className="gift-items network-visual" aria-hidden="true">
+          <i /><i /><i /><i /><i /><span /><span /><span />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Ideas() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-ideas">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">05 / BUILDING IDEAS</p>
+        <div className="gift-reveal">
+          <p className="gift-overline">TECH × BUSINESS × CREATIVITY</p>
+          <h2>Some ideas stay ideas.<br /><span>Others become projects.</span></h2>
+          <p className="gift-body">We&apos;ve talked about technology, business, ideas, and what could actually be built.</p>
+        </div>
+        <div className="gift-items idea-sequence">
+          <span><b>01</b> ASK</span><i>→</i><span><b>02</b> EXPLORE</span><i>→</i><span><b>03</b> BUILD</span><i>→</i><span><b>04</b> IMPROVE</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Future() {
+  const ref = useRef<HTMLElement | null>(null);
+  useCinematic(ref);
+  return (
+    <section ref={ref} className="gift-scene gift-future">
+      <div className="gift-glow" aria-hidden="true" />
+      <div className="gift-ring gift-ring-a" aria-hidden="true" />
+      <div className="gift-ring gift-ring-b" aria-hidden="true" />
+      <div className="gift-content">
+        <p className="gift-intro gift-kicker">06 / THE FUTURE</p>
+        <div className="gift-reveal">
+          <p className="future-words">KEEP LEARNING.<br />KEEP BUILDING.<br /><em>KEEP ASKING.</em></p>
+          <p className="gift-body roman">Bas aise hi seekhti raho, explore karti raho, aur apne ideas ko reality mein convert karti raho.</p>
+        </div>
+        <div className="gift-items future-list"><span>CODE</span><span>AI</span><span>SCIENCE</span><span>CYBER</span><span>TECH</span><span>BUSINESS</span></div>
+      </div>
+    </section>
+  );
+}
+
+function FinalReveal() {
+  const ref = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    const section = ref.current;
+    if (!section) return;
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(section);
+      const words = q(".final-word");
+      const message = q(".final-message");
+      const star = q(".final-star");
+      gsap.set([words, message, star], { autoAlpha: 0, y: 40 });
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: section, start: "top top", end: "+=1600", scrub: 1.1, pin: true, anticipatePin: 1 },
+      });
+      tl.to(words, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power4.out" })
+        .to(words, { autoAlpha: 0, y: -45, duration: 0.7, stagger: 0.05 })
+        .to(star, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, "-=0.2")
+        .to(message, { autoAlpha: 1, y: 0, duration: 1.1, ease: "power4.out" }, "-=0.2");
+      gsap.to(star, { rotation: 360, duration: 22, repeat: -1, ease: "none" });
+    }, section);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={ref} className="gift-scene gift-final">
+      <div className="gift-glow final-glow" aria-hidden="true" />
+      <div className="final-word-wrap">
+        <p className="final-word">ONE LAST THING.</p>
+        <p className="final-word">I NOTICED.</p>
+        <p className="final-word">AND I REMEMBERED.</p>
+      </div>
+      <div className="final-star" aria-hidden="true">✦</div>
+      <div className="final-message">
+        <p className="gift-overline">FOR AZKA</p>
+        <h2>Happy Birthday,<br /><span>Azka.</span></h2>
+        <p className="gift-body">Tumhara sharp thinking, tumhari curiosity, aur jis tarah tum cheezon ko samajhne ki koshish karti ho — that is genuinely something special.</p>
+        <p className="gift-body roman">Keep learning. Keep exploring. Keep building. Aur sab se important — questions poochti rehna.</p>
+        <p className="final-sign">✦</p>
+      </div>
+    </section>
+  );
+}
+
+export default function BirthdayExperience() {
+  return (
+    <main className="gift-experience">
+      <Opening />
+      <Mind />
+      <Curiosity />
+      <Builder />
+      <Explore />
+      <Ideas />
+      <Future />
+      <FinalReveal />
+    </main>
+  );
+}
