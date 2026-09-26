@@ -3,129 +3,94 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function KnowledgeOrbit() {
+const LABELS = ["AI","CODE","SCIENCE","CYBER","TECH","BUSINESS"];
+
+export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: number }) {
   const mount = useRef<HTMLDivElement>(null);
+  const active = useRef(activeIndex);
+  useEffect(() => { active.current = activeIndex; }, [activeIndex]);
 
   useEffect(() => {
     const host = mount.current;
     if (!host) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 0, 7.2);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(host.clientWidth, host.clientHeight);
+    const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
+    camera.position.z = 8.2;
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"low-power" });
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.35));
+    renderer.setSize(host.clientWidth,host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
 
-    const group = new THREE.Group();
-    scene.add(group);
+    const root = new THREE.Group();
+    scene.add(root);
 
-    const core = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(0.72, 2),
-      new THREE.MeshBasicMaterial({ color: 0x8bd7ff, wireframe: true, transparent: true, opacity: 0.7 })
-    );
-    group.add(core);
-
-    const glow = new THREE.Mesh(
-      new THREE.SphereGeometry(0.43, 20, 20),
-      new THREE.MeshBasicMaterial({ color: 0x72caff, transparent: true, opacity: 0.1 })
-    );
-    group.add(glow);
+    const core = new THREE.Group();
+    root.add(core);
+    const wire = new THREE.Mesh(new THREE.IcosahedronGeometry(.78,2),new THREE.MeshBasicMaterial({color:0x9ce2ff,wireframe:true,transparent:true,opacity:.72}));
+    const inner = new THREE.Mesh(new THREE.SphereGeometry(.46,20,20),new THREE.MeshBasicMaterial({color:0x65caff,transparent:true,opacity:.09}));
+    const halo = new THREE.Mesh(new THREE.SphereGeometry(1.1,20,20),new THREE.MeshBasicMaterial({color:0x55bfff,wireframe:true,transparent:true,opacity:.035}));
+    core.add(wire,inner,halo);
 
     const rings: THREE.Mesh[] = [];
-    const ringSpecs = [
-      [2.0, 0.48, 0.15],
-      [1.55, -0.7, 0.28],
-      [2.45, 1.05, -0.18],
-    ] as const;
-
-    ringSpecs.forEach(([radius, tilt, speed], index) => {
-      const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(radius, index === 0 ? 0.008 : 0.006, 8, 96),
-        new THREE.MeshBasicMaterial({ color: 0x8bd7ff, transparent: true, opacity: index === 0 ? 0.28 : 0.16 })
-      );
-      ring.rotation.x = tilt;
-      ring.rotation.z = index * 0.8;
-      ring.userData.speed = speed;
-      group.add(ring);
-      rings.push(ring);
+    [[1.55,.32,.23,.12],[2.12,-.72,.17,-.08],[2.72,1.02,.11,.055]].forEach(([radius,tilt,opacity,speed],i)=>{
+      const ring=new THREE.Mesh(new THREE.TorusGeometry(radius,i===0?.012:.008,8,128),new THREE.MeshBasicMaterial({color:i===1?0xa4a2ff:0x8bd7ff,transparent:true,opacity}));
+      ring.rotation.x=tilt; ring.userData.speed=speed; root.add(ring); rings.push(ring);
     });
 
-    const points = new THREE.Group();
-    const labels = ["AI", "CODE", "SCIENCE", "CYBER", "TECH", "BUSINESS"];
-    labels.forEach((label, index) => {
-      const angle = (index / labels.length) * Math.PI * 2;
-      const dot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.065, 10, 10),
-        new THREE.MeshBasicMaterial({ color: 0xc9edff, transparent: true, opacity: 0.9 })
-      );
-      dot.position.set(Math.cos(angle) * 2.05, Math.sin(angle) * 0.92, Math.sin(angle) * 0.6);
-      points.add(dot);
+    const nodes: THREE.Mesh[]=[];
+    const lines: THREE.Line[]=[];
+    const materials: THREE.LineBasicMaterial[]=[];
+    LABELS.forEach((_,i)=>{
+      const a=i/LABELS.length*Math.PI*2;
+      const node=new THREE.Mesh(new THREE.SphereGeometry(.09,12,12),new THREE.MeshBasicMaterial({color:0xa9e4ff,transparent:true,opacity:.75}));
+      node.position.set(Math.cos(a)*2.18,Math.sin(a)*1.1,Math.sin(a*1.7)*.48);
+      nodes.push(node); root.add(node);
+      const geo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),node.position.clone()]);
+      const mat=new THREE.LineBasicMaterial({color:0x83d8ff,transparent:true,opacity:.06});
+      const line=new THREE.Line(geo,mat);
+      lines.push(line); materials.push(mat); root.add(line);
     });
-    group.add(points);
 
-    const starsGeometry = new THREE.BufferGeometry();
-    const starCount = 260;
-    const positions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      const i3 = i * 3;
-      const radius = 3.4 + Math.random() * 2.8;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i3 + 1] = radius * Math.cos(phi);
-      positions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
-    }
-    starsGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const stars = new THREE.Points(
-      starsGeometry,
-      new THREE.PointsMaterial({ color: 0x9fdcff, size: 0.018, transparent: true, opacity: 0.42 })
-    );
-    scene.add(stars);
+    const pg=new THREE.BufferGeometry();
+    const count=320, pos=new Float32Array(count*3);
+    for(let i=0;i<count;i++){const j=i*3,r=2.6+Math.random()*2.7,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);pos[j]=r*Math.sin(p)*Math.cos(t);pos[j+1]=r*Math.cos(p)*.72;pos[j+2]=r*Math.sin(p)*Math.sin(t);}
+    pg.setAttribute("position",new THREE.BufferAttribute(pos,3));
+    const particles=new THREE.Points(pg,new THREE.PointsMaterial({color:0x9edfff,size:.022,transparent:true,opacity:.4}));
+    scene.add(particles);
 
-    const resize = () => {
-      const width = host.clientWidth;
-      const height = host.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+    const target=new THREE.Vector2();
+    const move=(e:PointerEvent)=>{const r=host.getBoundingClientRect();target.set(((e.clientX-r.left)/r.width-.5)*.26,((e.clientY-r.top)/r.height-.5)*-.22);};
+    host.addEventListener("pointermove",move,{passive:true});
+
+    const ro=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
+    ro.observe(host);
+
+    const clock=new THREE.Clock(); let frame=0;
+    const tick=()=>{
+      const t=clock.getElapsedTime();
+      root.rotation.y += (target.x+t*.012-root.rotation.y)*.025;
+      root.rotation.x += (target.y+Math.sin(t*.2)*.03-root.rotation.x)*.025;
+      root.position.y=Math.sin(t*.5)*.04;
+      wire.rotation.x=t*.16; wire.rotation.z=t*.1;
+      inner.scale.setScalar(1+Math.sin(t*1.8)*.05); halo.rotation.z=-t*.05;
+      rings.forEach(r=>{r.rotation.y+=r.userData.speed*.012;});
+      nodes.forEach((n,i)=>{const on=i===active.current,s=on?1.45+Math.sin(t*4)*.08:1;n.scale.lerp(new THREE.Vector3(s,s,s),.12);(n.material as THREE.MeshBasicMaterial).opacity+=((on?1:.55)-(n.material as THREE.MeshBasicMaterial).opacity)*.08;});
+      materials.forEach((m,i)=>m.opacity+=((i===active.current?.3:.055)-m.opacity)*.08);
+      particles.rotation.y=t*.006;
+      renderer.render(scene,camera);
+      frame=requestAnimationFrame(tick);
     };
-    const observer = new ResizeObserver(resize);
-    observer.observe(host);
+    tick();
 
-    let frame = 0;
-    const clock = new THREE.Clock();
-    const animate = () => {
-      const t = clock.getElapsedTime();
-      group.rotation.y = t * 0.09;
-      group.rotation.x = Math.sin(t * 0.22) * 0.08;
-      core.rotation.x = t * 0.16;
-      core.rotation.z = t * 0.11;
-      rings.forEach((ring) => { ring.rotation.y += ring.userData.speed * 0.004; });
-      points.rotation.y = -t * 0.045;
-      stars.rotation.y = t * 0.012;
-      renderer.render(scene, camera);
-      frame = requestAnimationFrame(animate);
+    return ()=>{
+      cancelAnimationFrame(frame); ro.disconnect(); host.removeEventListener("pointermove",move); renderer.dispose();
+      [wire,inner,halo,...rings,...nodes].forEach((m)=>{m.geometry.dispose();(m.material as THREE.Material).dispose();});
+      lines.forEach(l=>l.geometry.dispose()); materials.forEach(m=>m.dispose()); pg.dispose();(particles.material as THREE.Material).dispose();
+      if(renderer.domElement.parentNode===host)host.removeChild(renderer.domElement);
     };
-    animate();
+  },[]);
 
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      renderer.dispose();
-      core.geometry.dispose();
-      (core.material as THREE.Material).dispose();
-      glow.geometry.dispose();
-      (glow.material as THREE.Material).dispose();
-      rings.forEach((r) => { r.geometry.dispose(); (r.material as THREE.Material).dispose(); });
-      starsGeometry.dispose();
-      (stars.material as THREE.Material).dispose();
-      if (renderer.domElement.parentNode === host) host.removeChild(renderer.domElement);
-    };
-  }, []);
-
-  return <div ref={mount} className="knowledge-orbit-3d" aria-label="A lightweight 3D constellation of Azka's interests" role="img" />;
+  return <div ref={mount} className="knowledge-orbit-3d" role="img" aria-label="3D constellation of Azka's interests" />;
 }
