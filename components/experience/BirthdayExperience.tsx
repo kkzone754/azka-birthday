@@ -268,7 +268,7 @@ function Builder() {
         </div>
         <div className="gift-items build-lab">
           <div className="build-track" aria-hidden="true"><span style={{ width: `${(step / 4) * 100}%` }} /></div>
-          <div className="build-stage">
+          <div className="build-stage" aria-live="polite" aria-atomic="true">
             <small>{steps[step][0]}</small>
             <strong>{steps[step][1]}</strong>
             <p>{steps[step][2]}</p>
