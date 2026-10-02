@@ -10,6 +10,10 @@ const KnowledgeOrbit = dynamic(() => import("@/components/knowledge/KnowledgeOrb
   loading: () => <div className="knowledge-orbit-3d knowledge-orbit-loading" aria-hidden="true" />,
 });
 
+const preloadKnowledgeOrbit = () => {
+  void import("@/components/knowledge/KnowledgeOrbit");
+};
+
 gsap.registerPlugin(ScrollTrigger);
 
 const interests = [
@@ -21,11 +25,37 @@ const interests = [
   { label: "BUSINESS", glyph: "↗", note: "ideas with a purpose" },
 ];
 
+function useDesktopPointer(rootRef: RefObject<HTMLElement | null>) {
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    let frame = 0;
+    const move = (event: PointerEvent) => {
+      const x = ((event.clientX / window.innerWidth) - 0.5) * 2;
+      const y = ((event.clientY / window.innerHeight) - 0.5) * 2;
+
+      cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        root.style.setProperty("--pointer-xp", String(x * 4) + "%");
+        root.style.setProperty("--pointer-yp", String(y * 4) + "%");
+      });
+    };
+
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("pointermove", move);
+    };
+  }, [rootRef]);
+}
+
 function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
   useLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(section);
       const intro = q(".gift-intro");
@@ -33,6 +63,14 @@ function useCinematic(sectionRef: RefObject<HTMLElement | null>) {
       const items = q(".gift-items");
       const glow = q(".gift-glow");
       const rings = q(".gift-ring");
+
+      if (reduceMotion) {
+        gsap.set([intro, reveal, items, glow, rings], {
+          autoAlpha: 1,
+          clearProps: "transform,filter",
+        });
+        return;
+      }
 
       gsap.set(intro, { autoAlpha: 0, y: 22 });
       gsap.set(reveal, { autoAlpha: 0, y: 58, scale: 0.965, filter: "blur(9px)" });
@@ -112,9 +150,17 @@ function Opening() {
   );
 }
 
+const mindModes = [
+  ["LEARN", "New information → understood quickly"],
+  ["REMEMBER", "Details → kept → recalled later"],
+  ["QUESTION", "Something interesting → dig deeper"],
+  ["CONNECT", "One idea → linked to another"],
+];
+
 function Mind() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
+  const [activeMind, setActiveMind] = useState(0);
   return (
     <section ref={ref} className="gift-scene gift-mind">
       <div className="scene-accent accent-orb accent-orb-a" aria-hidden="true" />
@@ -132,15 +178,25 @@ function Mind() {
           <p className="gift-body roman">Kabhi kabhi class mein question poora bhi nahi hota aur tumhare paas answer hota hai.</p>
           <p className="gift-body">Aur jab koi cheez interesting ho, tum usse sirf sun kar chhor nahi deti — tum usse samajhne ki koshish karti ho.</p>
         </div>
-        <div className="gift-items mind-map" aria-label="A living map of how ideas connect">
+        <div className="gift-items mind-map" aria-label="Interactive map of how ideas connect">
           <div className="mind-map-core">AZKA</div>
-          <span className="mind-map-node m1">LEARN</span>
-          <span className="mind-map-node m2">REMEMBER</span>
-          <span className="mind-map-node m3">QUESTION</span>
-          <span className="mind-map-node m4">CONNECT</span>
-          <i className="mind-link l1" /><i className="mind-link l2" /><i className="mind-link l3" /><i className="mind-link l4" />
+          {mindModes.map(([label, note], index) => (
+            <button
+              className={`mind-map-node m${index + 1} ${activeMind === index ? "is-active" : ""}`}
+              key={label}
+              type="button"
+              onClick={() => setActiveMind(index)}
+              aria-label={label + ": " + note}
+            >
+              {label}
+            </button>
+          ))}
+          <i className="mind-link l1" aria-hidden="true" />
+          <i className="mind-link l2" aria-hidden="true" />
+          <i className="mind-link l3" aria-hidden="true" />
+          <i className="mind-link l4" aria-hidden="true" />
+          <p className="mind-map-note">{mindModes[activeMind][1]}</p>
         </div>
-        <div className="mind-points"><span>NOTICE</span><span>REMEMBER</span><span>CONNECT</span><span>LEARN</span></div>
       </div>
     </section>
   );
@@ -225,9 +281,17 @@ function Builder() {
   );
 }
 
+const systemNodes = [
+  ["INPUT", "What enters the system?"],
+  ["PATTERN", "What repeats or connects?"],
+  ["LOGIC", "What makes the system behave this way?"],
+  ["OUTPUT", "What does the system produce?"],
+];
+
 function Explore() {
   const ref = useRef<HTMLElement | null>(null);
   useCinematic(ref);
+  const [activeNode, setActiveNode] = useState(0);
   return (
     <section ref={ref} className="gift-scene gift-explore">
       <div className="explore-sweep" aria-hidden="true" />
@@ -242,11 +306,22 @@ function Explore() {
         </div>
         <div className="gift-items system-map">
           <div className="system-core">SYSTEM</div>
-          <span className="sys-node s1">INPUT</span>
-          <span className="sys-node s2">PATTERN</span>
-          <span className="sys-node s3">LOGIC</span>
-          <span className="sys-node s4">OUTPUT</span>
-          <i className="sys-line a" /><i className="sys-line b" /><i className="sys-line c" /><i className="sys-line d" />
+          {systemNodes.map(([label, note], index) => (
+            <button
+              className={`sys-node s${index + 1} ${activeNode === index ? "is-active" : ""}`}
+              key={label}
+              type="button"
+              onClick={() => setActiveNode(index)}
+              aria-label={label + ": " + note}
+            >
+              {label}
+            </button>
+          ))}
+          <i className="sys-line a" aria-hidden="true" />
+          <i className="sys-line b" aria-hidden="true" />
+          <i className="sys-line c" aria-hidden="true" />
+          <i className="sys-line d" aria-hidden="true" />
+          <p className="system-node-note">{systemNodes[activeNode][1]}</p>
           <p className="system-caption">understand the system before trying to change it</p>
         </div>
       </div>
@@ -396,7 +471,12 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
     const root = ref.current;
     if (!root) return;
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set([".cover-kicker", ".cover-name", ".cover-copy", ".cover-button"], { autoAlpha: 1, clearProps: "transform,filter" });
+        return;
+      }
       gsap.fromTo(".cover-kicker", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, ease: "power4.out" });
       gsap.fromTo(".cover-name", { y: 55, autoAlpha: 0, scale: .92, filter: "blur(10px)" }, { y: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1.15, delay: .1, ease: "power4.out" });
       gsap.fromTo(".cover-copy", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .75, delay: .5, ease: "power3.out" });
@@ -427,6 +507,8 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
           className="cover-button"
           type="button"
           onClick={onOpen}
+          onPointerEnter={preloadKnowledgeOrbit}
+          onFocus={preloadKnowledgeOrbit}
           aria-label="Open the birthday experience"
         >
           <span>OPEN THE EXPERIENCE</span>
@@ -434,14 +516,41 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
         </button>
       </div>
 
-      <p className="cover-foot">TAP TO BEGIN · BEST EXPERIENCED SLOWLY</p>
+      <p className="cover-foot">CLICK TO BEGIN · BEST EXPERIENCED SLOWLY</p>
     </main>
   );
 }
 
 
+function StoryProgress({ rootRef }: { rootRef: RefObject<HTMLElement | null> }) {
+  const progressRef = useRef<HTMLSpanElement | null>(null);
+
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    const progress = progressRef.current;
+    if (!root || !progress) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: root,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => gsap.set(progress, { scaleX: self.progress }),
+    });
+
+    return () => trigger.kill();
+  }, [rootRef]);
+
+  return (
+    <div className="story-progress" aria-hidden="true">
+      <span ref={progressRef} />
+    </div>
+  );
+}
+
 function BirthdayExperience() {
   const [started, setStarted] = useState(false);
+  const experienceRef = useRef<HTMLElement | null>(null);
+  useDesktopPointer(experienceRef);
 
   useLayoutEffect(() => {
     if (!started) return;
@@ -454,7 +563,8 @@ function BirthdayExperience() {
   if (!started) return <CoverScreen onOpen={() => setStarted(true)} />;
 
   return (
-    <main className="gift-experience">
+    <main ref={experienceRef} className="gift-experience">
+      <StoryProgress rootRef={experienceRef} />
       <Opening />
       <Mind />
       <Curiosity />
