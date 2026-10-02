@@ -14,12 +14,6 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const host = mount.current;
     if (!host) return;
 
-    // The cover screen must never depend on WebGL. If WebGL 2 is unavailable,
-    // keep this scene optional instead of allowing a renderer error to break the page.
-    const canvas = document.createElement("canvas");
-    const gl = canvas.getContext("webgl2");
-    if (!gl) return;
-
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
     camera.position.z = 8.2;
@@ -80,7 +74,7 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
     const ro=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
     ro.observe(host);
 
-    const clock=new THREE.Clock(); let frame=0;
+    const clock=new THREE.Clock();
     const tick=()=>{
       const t=clock.getElapsedTime();
       root.rotation.y += (target.x+t*.012-root.rotation.y)*.025;
@@ -89,16 +83,27 @@ export default function KnowledgeOrbit({ activeIndex = 0 }: { activeIndex?: numb
       wire.rotation.x=t*.16; wire.rotation.z=t*.1;
       inner.scale.setScalar(1+Math.sin(t*1.8)*.05); halo.rotation.z=-t*.05;
       rings.forEach(r=>{r.rotation.y+=r.userData.speed*.012;});
-      nodes.forEach((n,i)=>{const on=i===active.current,s=on?1.45+Math.sin(t*4)*.08:1;n.scale.lerp(new THREE.Vector3(s,s,s),.12);(n.material as THREE.MeshBasicMaterial).opacity+=((on?1:.55)-(n.material as THREE.MeshBasicMaterial).opacity)*.08;});
+      nodes.forEach((n,i)=>{
+        const on=i===active.current;
+        const targetScale=on?1.45+Math.sin(t*4)*.08:1;
+        n.scale.x += (targetScale-n.scale.x)*.12;
+        n.scale.y = n.scale.x;
+        n.scale.z = n.scale.x;
+        const material=n.material as THREE.MeshBasicMaterial;
+        material.opacity += ((on?1:.55)-material.opacity)*.08;
+      });
       materials.forEach((m,i)=>m.opacity+=((i===active.current ? .3 : .055)-m.opacity)*.08);
       particles.rotation.y=t*.006;
       renderer.render(scene,camera);
-      frame=requestAnimationFrame(tick);
     };
-    tick();
+
+    renderer.setAnimationLoop(tick);
 
     return ()=>{
-      cancelAnimationFrame(frame); ro.disconnect(); host.removeEventListener("pointermove",move); renderer.dispose();
+      renderer.setAnimationLoop(null);
+      ro.disconnect();
+      host.removeEventListener("pointermove",move);
+      renderer.dispose();
       [wire,inner,halo,...rings,...nodes].forEach((m)=>{m.geometry.dispose();(m.material as THREE.Material).dispose();});
       lines.forEach(l=>l.geometry.dispose()); materials.forEach(m=>m.dispose()); pg.dispose();(particles.material as THREE.Material).dispose();
       if(renderer.domElement.parentNode===host)host.removeChild(renderer.domElement);
