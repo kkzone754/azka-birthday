@@ -430,10 +430,18 @@ function FinalReveal() {
   useLayoutEffect(() => {
     const section = ref.current;
     if (!section) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(section);
       const words = q(".final-word");
       const message = q(".final-message");
+
+      if (reduceMotion) {
+        gsap.set(words, { autoAlpha: 0 });
+        gsap.set(message, { autoAlpha: 1, clearProps: "transform" });
+        return;
+      }
+
       gsap.set([words, message], { autoAlpha: 0, y: 40 });
       const tl = gsap.timeline({
         scrollTrigger: { trigger: section, start: "top top", end: "+=1900", scrub: 0.8, pin: true, anticipatePin: 1, fastScrollEnd: true, preventOverlaps: "azka-story", invalidateOnRefresh: true },
@@ -466,6 +474,7 @@ function FinalReveal() {
 
 function CoverScreen({ onOpen }: { onOpen: () => void }) {
   const ref = useRef<HTMLElement | null>(null);
+  useDesktopPointer(ref);
 
   useLayoutEffect(() => {
     const root = ref.current;
