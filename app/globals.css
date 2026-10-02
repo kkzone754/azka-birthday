@@ -2457,3 +2457,37 @@ html, body {
     radial-gradient(560px 440px at 50% 48%, rgba(139,215,255,.055), transparent 74%),
     radial-gradient(520px 420px at calc(50% + var(--pointer-xp)) calc(50% + var(--pointer-yp)), rgba(139,215,255,.045), transparent 72%);
 }
+
+
+/* POINTER COMPATIBILITY PATCH — use precomputed values instead of CSS multiplication */
+.cover-content {
+  transform: translate3d(var(--pointer-xpx, 0px), var(--pointer-ypx, 0px), 0);
+}
+
+.gift-cover .cover-orbit {
+  transform:
+    translate(calc(-50% + var(--pointer-xp)), calc(-50% + var(--pointer-yp)))
+    rotateX(66deg)
+    rotateZ(-6deg);
+}
+
+.gift-cover .cover-orbit-inner {
+  transform:
+    translate(calc(-50% + var(--pointer-xp-reverse)), calc(-50% + var(--pointer-yp-reverse)))
+    rotateX(62deg)
+    rotateY(14deg)
+    rotateZ(9deg);
+}
+
+.gift-curiosity .knowledge-orbit-3d {
+  transform:
+    translate(calc(-50% + var(--pointer-xp)), calc(-50% + var(--pointer-yp)))
+    translateZ(0);
+}
+
+.gift-cover .cover-grid {
+  transform:
+    perspective(800px)
+    rotateX(64deg)
+    translate3d(var(--pointer-xp), var(--pointer-yp), 0);
+}
