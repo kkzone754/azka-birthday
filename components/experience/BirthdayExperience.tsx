@@ -39,8 +39,12 @@ function useDesktopPointer(rootRef: RefObject<HTMLElement | null>) {
       frame = window.requestAnimationFrame(() => {
         root.style.setProperty("--pointer-x", String(x));
         root.style.setProperty("--pointer-y", String(y));
+        root.style.setProperty("--pointer-xpx", String(x * 4) + "px");
+        root.style.setProperty("--pointer-ypx", String(y * 2) + "px");
         root.style.setProperty("--pointer-xp", String(x * 4) + "%");
         root.style.setProperty("--pointer-yp", String(y * 4) + "%");
+        root.style.setProperty("--pointer-xp-reverse", String(x * -2) + "%");
+        root.style.setProperty("--pointer-yp-reverse", String(y * -2) + "%");
       });
     };
 
@@ -197,7 +201,7 @@ function Mind() {
           <i className="mind-link l2" aria-hidden="true" />
           <i className="mind-link l3" aria-hidden="true" />
           <i className="mind-link l4" aria-hidden="true" />
-          <p className="mind-map-note">{mindModes[activeMind][1]}</p>
+          <p className="mind-map-note" aria-live="polite">{mindModes[activeMind][1]}</p>
         </div>
       </div>
     </section>
@@ -323,7 +327,7 @@ function Explore() {
           <i className="sys-line b" aria-hidden="true" />
           <i className="sys-line c" aria-hidden="true" />
           <i className="sys-line d" aria-hidden="true" />
-          <p className="system-node-note">{systemNodes[activeNode][1]}</p>
+          <p className="system-node-note" aria-live="polite">{systemNodes[activeNode][1]}</p>
           <p className="system-caption">understand the system before trying to change it</p>
         </div>
       </div>
