@@ -1465,7 +1465,7 @@ body {
 
 .gift-scene {
   height: 100svh;
-  min-height: 760px;
+  min-height: 680px;
 }
 
 .gift-content {
@@ -1486,7 +1486,7 @@ body {
 
 .gift-cover {
   height: 100svh;
-  min-height: 760px;
+  min-height: 680px;
 }
 
 .cover-content {
