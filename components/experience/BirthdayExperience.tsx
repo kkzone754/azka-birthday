@@ -37,6 +37,8 @@ function useDesktopPointer(rootRef: RefObject<HTMLElement | null>) {
 
       cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
+        root.style.setProperty("--pointer-x", String(x));
+        root.style.setProperty("--pointer-y", String(y));
         root.style.setProperty("--pointer-xp", String(x * 4) + "%");
         root.style.setProperty("--pointer-yp", String(y * 4) + "%");
       });
