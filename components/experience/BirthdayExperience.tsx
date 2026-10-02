@@ -476,7 +476,29 @@ function FinalReveal() {
 
 function CoverScreen({ onOpen }: { onOpen: () => void }) {
   const ref = useRef<HTMLElement | null>(null);
+  const leaveTimerRef = useRef<number | null>(null);
+  const [leaving, setLeaving] = useState(false);
   useDesktopPointer(ref);
+
+  useLayoutEffect(() => {
+    return () => {
+      if (leaveTimerRef.current !== null) {
+        window.clearTimeout(leaveTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleOpen = () => {
+    if (leaving) return;
+    setLeaving(true);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onOpen();
+      return;
+    }
+
+    leaveTimerRef.current = window.setTimeout(onOpen, 520);
+  };
 
   useLayoutEffect(() => {
     const root = ref.current;
@@ -498,14 +520,27 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
   }, []);
 
   return (
-    <main ref={ref} className="gift-cover">
+    <main ref={ref} className={`gift-cover${leaving ? " is-leaving" : ""}`}>
       <div className="cover-light" aria-hidden="true" />
       <div className="cover-grid" aria-hidden="true" />
+      <div className="cover-status" aria-hidden="true">
+        <span className="cover-status-dot" />
+        EXPERIENCE ONLINE
+      </div>
+      <div className="cover-index" aria-hidden="true">
+        <span>01</span>
+        <i />
+        <span>08</span>
+      </div>
       <div className="cover-orbit" aria-hidden="true">
         <div className="cover-orbit-track"><i /><i /><i /></div>
       </div>
       <div className="cover-orbit-inner" aria-hidden="true">
         <div className="cover-orbit-inner-track"><span /><span /><span /><span /></div>
+      </div>
+      <div className="cover-legend" aria-hidden="true">
+        <span className="cover-legend-left">CURIOUS / BUILDER / THINKER</span>
+        <span className="cover-legend-right">01 SMALL DIGITAL WORLD</span>
       </div>
 
       <div className="cover-content">
@@ -517,10 +552,11 @@ function CoverScreen({ onOpen }: { onOpen: () => void }) {
         <button
           className="cover-button"
           type="button"
-          onClick={onOpen}
+          onClick={handleOpen}
           onPointerEnter={preloadKnowledgeOrbit}
           onFocus={preloadKnowledgeOrbit}
           aria-label="Open the birthday experience"
+          disabled={leaving}
         >
           <span>OPEN THE EXPERIENCE</span>
           <span className="cover-arrow" aria-hidden="true">↓</span>
